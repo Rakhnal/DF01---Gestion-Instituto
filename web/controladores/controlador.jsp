@@ -79,11 +79,29 @@
         // --------------- Ventana Nuevo Usuario
         if (request.getParameter("register") != null) {
             
+            String correo = request.getParameter("correo");
+            String dni = request.getParameter("dni");
+            int edad = Integer.parseInt(request.getParameter("edad"));
+            String pass = request.getParameter("pass");
+            String nombre = (String) request.getParameter("nombre");
+            String apellido = (String) request.getParameter("apellido");
+
+            Usuario userObj = ConexionEstatica.existeUsuario(correo);
+            
+            if (userObj == null) {
+                            
+                ConexionEstatica.Insertar_Profesor(Constantes.usuarios, correo, dni, edad, pass, nombre, apellido);
+                response.sendRedirect("../vistas/newUser.jsp");
+                            
+            } else {
+            
                 %>
                 <script>
-                    alert("JSP");
+                    alert("El usuario ya ha sido dado de alta en la base de datos");
+                    location = '../vistas/newUser.jsp';
                 </script>
                 <%
+            }
         }
 
         // --------- Ventana elegir modo acceso
@@ -228,7 +246,7 @@
         %>
         <script>
             alert("Sesión expirada, vuelva a conectarse");
-            location = 'index.jsp';
+            location = '../index.jsp';
         </script>
         <%
 

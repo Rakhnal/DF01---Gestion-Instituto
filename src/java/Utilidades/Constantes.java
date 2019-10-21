@@ -13,6 +13,9 @@ public class Constantes {
     
     // Utilidades
     public static String ficheroBitacora = "bitacora.txt";
+    public static int active = 1;
+    public static int inactive = 0;
+    
     
     // Tipos
     public static int typeAdminge = 2;

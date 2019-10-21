@@ -14,24 +14,39 @@
         <link rel="shortcut icon" type="image/jpg" href="img/ifplogo.png" />
         <title>Iniciar Sesión</title>
 
-        <link rel="stylesheet" type="text/css" href="css/micss.css">
+        <script src="../scripts/jquery-3.4.1.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="css/login.css">
+        
+        <script>
+            
+            function comprobarCampos() {
+                
+                if ($('correo').val() === "") {
+                    
+                    return false;
+                }
+                
+            }
+            
+        </script>
     </head>
     <body>
         
         <div id="ppal">
-            <form name="logForm" action="controlador.jsp" method="POST">
+            <form name="logForm" onsubmit="return comprobarCampos()" action="controlador.jsp" method="POST">
 
                 <h1>Iniciar Sesión</h1>
 
                 <div>
-                    <span>Usuario:</span> 
-                    <input required type='text' type='email' placeholder='usuario@dominio.xxx' name='user' style="margin-left: 30px"/>
+                    <span>Correo:</span> 
+                    <input required type='text' type='email' placeholder='usuario@dominio.xxx' name='correo' id = 'correo'/>
                     <br>
                 </div>
 
                 <div>
                     <span>Contraseña:</span> 
-                    <input required type='password' placeholder='Contraseña' name='pass'  style="margin-left: 10px"/>
+                    <input required type='password' placeholder='Contraseña' name='pass' id = 'pass' name='pass'/>
                     <br>
                 </div>
 

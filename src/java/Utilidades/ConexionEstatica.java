@@ -45,20 +45,30 @@ public class ConexionEstatica {
         }
     }
 
-    // Buscamos el usuario en la BBDD
-    public static Usuario existeUsuario(String user) {
+    /**
+     * Buscamos si existe un usuario en la BBDD, no puede tener el mismo DNI o el mismo correo
+     * @param dni
+     * @param correo
+     * @return 
+     */
+    public static Usuario existeUsuario(String correo) {
         Usuario existe = null;
         try {
-            String sentencia = "SELECT * FROM usuarios WHERE user = '" + user + "'";
-            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            
+            String sentencia = "SELECT * FROM usuarios WHERE correo = ?";
+        
+            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+            sentenciaPreparada.setString(1, correo);
+            
+            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
             if (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
             {
-                //existe = new Usuario(Conj_Registros.getString("user"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getString("type"), Conj_Registros.getInt("contSesion"), Conj_Registros.getString("admin"));
+                existe = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("idRol"), Conj_Registros.getInt("numLogins"), Conj_Registros.getString("foto"));
             }
         } catch (SQLException ex) {
             System.out.println("Error en el acceso a la BD.");
         }
-        return existe;//Si devolvemos null el usuario no existe.
+        return existe; //Si devolvemos null el usuario no existe.
     }
     
     // Obtener todos los usuarios asociados al admin
@@ -107,10 +117,35 @@ public class ConexionEstatica {
         ConexionEstatica.Sentencia_SQL.execute(Sentencia);
     }
 
-    //----------------------------------------------------------
-    public static void Insertar_Dato(String tabla, String user, String password, String type, String admin, int edad) throws SQLException {
-        String Sentencia = "INSERT INTO " + tabla + " VALUES ('" + user + "','" + password + "','" + type + "','" + admin + "', " + edad + ")";
-        ConexionEstatica.Sentencia_SQL.execute(Sentencia);
+    /**
+     * Inserta un profesor en la tabla de usuarios
+     * @param tabla
+     * @param correo
+     * @param dni
+     * @param edad
+     * @param pass
+     * @param nombre
+     * @param apellido
+     * @throws SQLException 
+     */
+    public static void Insertar_Profesor(String tabla, String correo, String dni, int edad, String pass, String nombre, String apellido) throws SQLException {
+        
+        String sentencia = "INSERT INTO " + tabla + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setString(2, correo);
+        sentenciaPreparada.setString(3, pass);
+        sentenciaPreparada.setInt(4, 0);
+        sentenciaPreparada.setString(5, nombre);
+        sentenciaPreparada.setString(6, apellido);
+        sentenciaPreparada.setInt(7, edad);
+        sentenciaPreparada.setString(8, null);
+        sentenciaPreparada.setInt(9, Constantes.inactive);
+        sentenciaPreparada.setInt(10, Constantes.typeUsr);
+        
+        sentenciaPreparada.executeUpdate();
+        
     }
 
     //----------------------------------------------------------
