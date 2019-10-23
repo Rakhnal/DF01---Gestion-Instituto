@@ -11,35 +11,50 @@ and open the template in the editor.
 body {
     background-image: url("../img/instPpal.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    
+    font-family: sans-serif;
 }
 
 a {
-    margin-left: 10px;
+    margin: 15px;
+    justify-self: center;
+    
+    color: black;
 }
 
 input {
     width: 70%;
     border: 1px solid black;
+    justify-self: center;
 }
 
 div {
-    grid-column: span 2;
-    display: flex;
     align-items: center;
-    margin-top: 5%;
 }
 
 fieldset {
     text-align: center;
 }
 
+footer {
+    position: absolute !important;
+    bottom: 1% !important;
+    left: 1% !important;
+}
+
 input[type = 'submit'] {
-    display: inline-block;
-    background: none;
+    border: none;
+    margin: 10px;
+    background-image: url("../img/login.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent;
     border-radius: 9px;
     width: 100px;
-    height: 30px;
+    height: 50px;
+    
+    justify-self: center;
 }
 
 input[type = 'number'] {
@@ -48,6 +63,7 @@ input[type = 'number'] {
 
 p {
     display: inline;
+    justify-self: center;
 }
 
 label {
@@ -57,21 +73,27 @@ label {
 }
 
 form {
-    margin: 0;
+    
+    padding-top: 20%;
+    
     border-radius: 9px;
     width: 100%;
     
     display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: repeat(9, 11.1111);
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(7, 14.2857);
     justify-content: center;
 }
 
 h1 {
-    margin: 0px;
+    margin: 15px;
     padding: 0px;
     text-align: center;
     font-size: 1.5em;
+    
+    justify-self: center;
+    
+    font-size: 2.5em;
 }
 
 select {
@@ -85,24 +107,14 @@ select {
 }
 
 #ppal {
-    position:fixed;
-    left:0; right:0;
-    top:0; bottom:0;
-    margin-left: 25%;
-
-    max-width:100%;
-    max-height:100%;
-    overflow: hidden;
+    border: 10px solid #edfffe !important;
     
-    width: 50%;
+    margin-left: 60%;
+    margin-top:8%;
+    width: 25%;
     min-height: 485px;
     background-color: white;
     -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-}
-
-#botones {
-    left: 50%;
-    right: -50%;
 }

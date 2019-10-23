@@ -24,8 +24,7 @@
             $(document).ready(function () {
 
                 var allOK = true;
-
-
+                
                 $("input").on('focusin', function () {
                     $("input").on("focusout", validateAll);
                 });
@@ -40,9 +39,13 @@
 
                     if (nombre === "") {
                         $('#nombre').css("border", "2px solid red");
+                        $('#imgNombre').css("visibility", "visible");
+                        $('#imgNombre').attr('title', 'Tienes que introducir un nombre');
                         allOK = false;
                     } else {
                         $('#nombre').css("border", "1px solid black");
+                        $('#imgNombre').css("visibility", "hidden");
+                        $('#imgNombre').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -52,9 +55,11 @@
 
                     if (apellido === "") {
                         $('#apellido').css("border", "2px solid red");
+                        $('#imgApellido').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#apellido').css("border", "1px solid black");
+                        $('#imgApellido').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
@@ -64,12 +69,15 @@
 
                     if (dni === "") {
                         $('#dni').css("border", "2px solid red");
+                        $('#imgDni').css("visibility", "visible");
                         allOK = false;
                     } else if (!nif(dni)) {
                         $('#dni').css("border", "2px solid red");
+                        $('#imgDni').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#dni').css("border", "1px solid black");
+                        $('#imgDni').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
@@ -80,12 +88,15 @@
 
                     if (correo === "") {
                         $('#correo').css("border", "2px solid red");
+                        $('#imgCorreo').css("visibility", "visible");
                         allOK = false;
                     } else if (!validateEmail(correo)) {
                         $('#correo').css("border", "2px solid red");
+                        $('#imgCorreo').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#correo').css("border", "1px solid black");
+                        $('#imgCorreo').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
@@ -95,21 +106,31 @@
 
                     if (pass === "") {
                         $('#pass').css("border", "2px solid red");
+                        $('#imgPass').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#pass').css("border", "1px solid black");
+                        $('#imgPass').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
 
                 if (this.id === 'passVal') {
+                    
                     var passVal = $('#passVal').val();
-
+                    var pass = $('#pass').val();
+                    
                     if (passVal === "") {
                         $('#passVal').css("border", "2px solid red");
+                        $('#imgPassVal').css("visibility", "visible");
+                        allOK = false;
+                    } else if (pass !== passVal) {
+                        $('#passVal').css("border", "2px solid red");
+                        $('#imgPassVal').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#passVal').css("border", "1px solid black");
+                        $('#imgPassVal').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
@@ -119,9 +140,11 @@
 
                     if (edad === "") {
                         $('#edad').css("border", "2px solid red");
+                        $('#imgEdad').css("visibility", "visible");
                         allOK = false;
                     } else {
                         $('#edad').css("border", "1px solid black");
+                        $('#imgEdad').css("visibility", "hidden");
                         allOK = true;
                     }
                 }
@@ -132,6 +155,7 @@
                 if (allOK) {
                     return true;
                 } else {
+                    alert("Hay errores en el formulario, revísalo");
                     return false;
                 }
             }
@@ -194,6 +218,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' name='nombre' placeholder='Nombre' id = 'nombre'/>
+                        <img id = 'imgNombre' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
 
@@ -203,6 +228,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' name='apellido' placeholder='Primer Apellido' id='apellido'/>
+                        <img id = 'imgApellido' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -211,6 +237,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='email' placeholder='usuario@xxxxxxx.xxx' name='correo' id='correo'/>
+                        <img id = 'imgCorreo' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -219,6 +246,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='password' placeholder='Contraseña' name='pass' id='pass'/>
+                        <img id = 'imgPass' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -227,6 +255,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='password' placeholder='Contraseña' name='passVal' id = 'passVal'/>
+                        <img id = 'imgPassVal' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -235,6 +264,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' placeholder='DNI' maxlength="9" name='dni' id='dni'/>
+                        <img id = 'imgDni' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -243,13 +273,12 @@
                     </label>
                     <label class = 'left'>
                         <input type='number' min = "18" max = "99" name='edad' id='edad'/>
+                        <img id = 'imgEdad' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>
 
-                <div id = 'botones'>
-                    <input type='submit' value = 'Aceptar' name = 'register' id="register"/>
-                    <input type='submit' value = 'Volver' name = 'boton' id="back"/>
-                </div>
+                <input type='submit' value = '' name = 'register' id="register"/>
+                <input type='submit' value = '' name = 'backRegister' id="back"/>
             </form>
         </div>
     </body>

@@ -47,7 +47,6 @@ public class ConexionEstatica {
 
     /**
      * Buscamos si existe un usuario en la BBDD, no puede tener el mismo DNI o el mismo correo
-     * @param dni
      * @param correo
      * @return 
      */
@@ -63,12 +62,32 @@ public class ConexionEstatica {
             ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
             if (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
             {
-                existe = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("idRol"), Conj_Registros.getInt("numLogins"), Conj_Registros.getString("foto"));
+                existe = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("numLogins"), Conj_Registros.getBlob("foto"), Conj_Registros.getBytes("foto"));
             }
         } catch (SQLException ex) {
             System.out.println("Error en el acceso a la BD.");
         }
         return existe; //Si devolvemos null el usuario no existe.
+    }
+    
+    public static ArrayList<Integer> cargarRoles(String dni) {
+        ArrayList<Integer> roles = new ArrayList<>();
+        try {
+            
+            String sentencia = "SELECT * FROM roles WHERE dni = ?";
+        
+            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+            sentenciaPreparada.setString(1, dni);
+            
+            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
+            while (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
+            {
+                roles.add(Conj_Registros.getInt("idRol"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return roles; //Si devolvemos null no hay roles.
     }
     
     // Obtener todos los usuarios asociados al admin
@@ -106,9 +125,9 @@ public class ConexionEstatica {
     }
     
     //----------------------------------------------------------
-    public static void Modificar_Dato(String tabla,String campo, String valor, String user) throws SQLException {
-        String Sentencia = "UPDATE " + tabla + " SET " + campo + " = '" + valor + "' WHERE user = '" + user + "'";
-        ConexionEstatica.Sentencia_SQL.execute(Sentencia);
+    public static void Modificar_Dato(String tabla,String campo, String valor, String correo) throws SQLException {
+        String Sentencia = "UPDATE " + tabla + " SET " + campo + " = '" + valor + "' WHERE correo = '" + correo + "'";
+        ConexionEstatica.Sentencia_SQL.executeUpdate(Sentencia);
     }
     
     //----------------------------------------------------------
@@ -130,7 +149,7 @@ public class ConexionEstatica {
      */
     public static void Insertar_Profesor(String tabla, String correo, String dni, int edad, String pass, String nombre, String apellido) throws SQLException {
         
-        String sentencia = "INSERT INTO " + tabla + " VALUES (?,?,?,?,?,?,?,?,?,?)";
+        String sentencia = "INSERT INTO " + tabla + " VALUES (?,?,?,?,?,?,?,?,?)";
         
         PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
         sentenciaPreparada.setString(1, dni);
@@ -142,9 +161,16 @@ public class ConexionEstatica {
         sentenciaPreparada.setInt(7, edad);
         sentenciaPreparada.setString(8, null);
         sentenciaPreparada.setInt(9, Constantes.inactive);
-        sentenciaPreparada.setInt(10, Constantes.typeUsr);
         
         sentenciaPreparada.executeUpdate();
+        
+        String sentenciaRoles = "INSERT INTO roles VALUES (?,?)";
+        
+        PreparedStatement sentenciaPrepRoles = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPrepRoles.setString(1, dni);
+        sentenciaPrepRoles.setInt(2, Constantes.typeUsr);
+        
+        sentenciaPrepRoles.executeUpdate();
         
     }
 

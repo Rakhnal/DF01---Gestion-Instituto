@@ -11,7 +11,14 @@ and open the template in the editor.
 body {
     background-image: url("../img/instPpal.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
+    
+    font-family: sans-serif;
+    
+    margin: 0;
+    padding: 0;
+    
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
 a {
@@ -23,7 +30,16 @@ input {
     border: 1px solid black;
 }
 
+img {
+    visibility: hidden;
+    vertical-align: middle;
+    width: 23px;
+    height: 23px;
+}
+
 div {
+    z-index: -1;
+    
     grid-column: span 2;
     display: flex;
     align-items: center;
@@ -35,11 +51,10 @@ fieldset {
 }
 
 input[type = 'submit'] {
-    display: inline-block;
+    border: none;
     background: none;
-    border-radius: 9px;
-    width: 100px;
-    height: 30px;
+    width: 60px;
+    height: 60px;
 }
 
 input[type = 'number'] {
@@ -67,11 +82,33 @@ form {
     justify-content: center;
 }
 
+header {
+    margin-top: 20px;
+    min-height: 100px;
+    
+    border: 1px solid #dcf2f1;
+    
+    width: 100%;
+    text-align: -webkit-center;
+    
+    display:table;
+    
+    -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
+    -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
+    box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
+}
+
 h1 {
-    margin: 0px;
-    padding: 0px;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2em;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    
+    min-height: inherit;
+    
+    display:table-cell; 
+    vertical-align:middle
 }
 
 select {
@@ -92,17 +129,26 @@ select {
 
     max-width:100%;
     max-height:100%;
-    overflow: hidden;
+    overflow-y: visible;
     
     width: 50%;
-    min-height: 485px;
+    min-height: 500px;
     background-color: white;
-    -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-    -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-    box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
 }
 
-#botones {
-    left: 50%;
-    right: -50%;
+#register, #back {
+    margin-top: 10%;
+    justify-self: center;
+}
+
+#register {
+    background-image: url("../img/checked.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#back {
+    background-image: url("../img/cross.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }

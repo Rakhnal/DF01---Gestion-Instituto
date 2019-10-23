@@ -5,6 +5,8 @@
  */
 package Clases;
 
+import java.sql.Blob;
+import java.util.ArrayList;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -24,20 +26,22 @@ public class Usuario {
     private String apellido;
     private int edad;
     private String pass;
-    private int idRol;
+    private ArrayList<Integer> idRols;
     private int numLogins;
-    private String foto;
+    private Blob foto;
+    private byte [] fotoBytes;
 
-    public Usuario(String dni, String correo, String nombre, String apellido, int edad, String pass, int idRol, int numLogins, String foto) {
+    public Usuario(String dni, String correo, String nombre, String apellido, int edad, String pass, int numLogins, Blob foto, byte [] fotoBytes) {
         this.dni = dni;
         this.correo = correo;
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
         this.pass = pass;
-        this.idRol = idRol;
         this.numLogins = numLogins;
         this.foto = foto;
+        this.fotoBytes = fotoBytes;
+        this.idRols = new ArrayList<>();
     }
 
     public String getDni() {
@@ -88,12 +92,12 @@ public class Usuario {
         this.pass = pass;
     }
 
-    public int getIdRol() {
-        return idRol;
+    public ArrayList<Integer> getIdRols() {
+        return idRols;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
+    public void setIdRols(ArrayList<Integer> idRols) {
+        this.idRols = idRols;
     }
 
     public int getNumLogins() {
@@ -104,12 +108,20 @@ public class Usuario {
         this.numLogins = numLogins;
     }
 
-    public String getFoto() {
+    public Blob getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(Blob foto) {
         this.foto = foto;
+    }
+
+    public byte[] getFotoBytes() {
+        return fotoBytes;
+    }
+
+    public void setFotoBytes(byte[] fotoBytes) {
+        this.fotoBytes = fotoBytes;
     }
 
     // Enviamos un correo al usuario para informar del reestablecimiento de la contraseña

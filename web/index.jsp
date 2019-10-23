@@ -1,63 +1,60 @@
-<%-- 
-    Document   : index
-    Created on : 01-oct-2019, 9:18:13
-    Author     : alvaro
---%>
-
-<%@page import="java.util.ArrayList"%>
-<%@page import="Clases.Usuario"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <link rel="shortcut icon" type="image/jpg" href="img/ifplogo.png" />
-        <title>Iniciar Sesión</title>
+        <title>Iniciar Sesi�n</title>
 
         <script src="../scripts/jquery-3.4.1.min.js"></script>
-        
+
         <link rel="stylesheet" type="text/css" href="css/login.css">
-        
+
         <script>
-            
+
             function comprobarCampos() {
-                
-                if ($('correo').val() === "") {
-                    
+
+                if ($('#correo').val() === "") {
+                    $('#correo').css("border", "2px solid red");
                     return false;
+                } else {
+                    $('#correo').css("border", "1px solid black");
                 }
-                
+
+                if ($('#pass').val() === "") {
+                    $('#pass').css("border", "2px solid red");
+                    return false;
+                } else {
+                    $('#pass').css("border", "1px solid black");
+                }
+
             }
-            
+
         </script>
     </head>
     <body>
-        
+
         <div id="ppal">
-            <form name="logForm" onsubmit="return comprobarCampos()" action="controlador.jsp" method="POST">
+            <form name="logForm" onsubmit="return comprobarCampos()" action="controladores/controlador.jsp" method="POST">
 
-                <h1>Iniciar Sesión</h1>
+                <h1>Iniciar Sesi�n</h1>
 
-                <div>
-                    <span>Correo:</span> 
-                    <input required type='text' type='email' placeholder='usuario@dominio.xxx' name='correo' id = 'correo'/>
-                    <br>
-                </div>
+                <p>Correo</p> 
+                <input required type='email' placeholder='usuario@dominio.xxx' name='correo' id = 'correo'/>
 
-                <div>
-                    <span>Contraseña:</span> 
-                    <input required type='password' placeholder='Contraseña' name='pass' id = 'pass' name='pass'/>
-                    <br>
-                </div>
-
-                <br>
+                <p>Contrase�a</p> 
+                <input required type='password' placeholder='Contrase�a' name='pass' id = 'pass'/>
 
                 <a href="vistas/newUser.jsp">Registrar</a>
-                <a href="vistas/resetPassword.jsp">Cambiar contraseña</a>
 
-                <br>
-                <input type='submit' value = 'Acceder' name = 'login'/>
+                <input type='submit' value = '' name = 'login'/>
             </form>
         </div>
+
+        <footer>
+
+            <div>Icons made by <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Gregor Cresnar">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+            </div>
+
+        </footer>
     </body>
 </html>
