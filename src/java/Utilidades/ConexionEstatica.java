@@ -2,6 +2,7 @@ package Utilidades;
 
 import Clases.Aula;
 import Clases.Franja;
+import Clases.Reserva;
 import Clases.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
@@ -108,7 +109,7 @@ public class ConexionEstatica {
             String sentencia = "SELECT * FROM franjas";
             ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
             while(Conj_Registros.next()){
-                franja = new Franja(Conj_Registros.getInt("idAula"), Conj_Registros.getString("frStart"), Conj_Registros.getString("frEnd"));
+                franja = new Franja(Conj_Registros.getInt("idFranja"), Conj_Registros.getString("frStart"), Conj_Registros.getString("frEnd"));
                 franjas.add(franja);
             }
         } catch (SQLException ex) {
@@ -118,7 +119,7 @@ public class ConexionEstatica {
     }
     
     /**
-     * Obtiene todas las aulas que haya en BBDD
+     * Obtiene todas las reservas que haya en BBDD
      * @return 
      */
     public static ArrayList<Aula> obtenerAulas() {
@@ -135,6 +136,26 @@ public class ConexionEstatica {
             System.out.println("Error en el acceso a la BD.");
         }
         return aulas;
+    }
+    
+    /**
+     * Obtiene todas las reservas que haya en BBDD
+     * @return 
+     */
+    public static ArrayList<Reserva> obtenerReservas() {
+        ArrayList<Reserva> reservas = new ArrayList<>();
+        Reserva reserva = null;
+        try {
+            String sentencia = "SELECT * FROM reservas";
+            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            while(Conj_Registros.next()){
+                reserva = new Reserva(Conj_Registros.getString("dni"), Conj_Registros.getInt("idAula"), Conj_Registros.getInt("idFranja"), Conj_Registros.getDate("fecha"));
+                reservas.add(reserva);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return reservas;
     }
 
     // Obtener todos los usuarios (Super administrador)

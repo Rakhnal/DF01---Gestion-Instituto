@@ -41,6 +41,8 @@ input {
 }
 
 #aulas {
+    display: flex; 
+        
     width: 100%;
     min-height: fit-content;
     background-color: yellow;
@@ -54,6 +56,10 @@ input {
     justify-self: center;
     width: inherit;
     text-align: center;
+}
+
+table {
+    flex: 1;
 }
 
 img {
@@ -128,6 +134,10 @@ img {
     width: 50%;
 }
 
+table input {
+    width: 70px;
+}
+
 nav {
     position: absolute;
     margin: auto;
@@ -177,6 +187,7 @@ nav li:hover > ul {
 }
 
 footer {
+    position: fixed;
     bottom: 1% !important;
     left: 1% !important;
 }

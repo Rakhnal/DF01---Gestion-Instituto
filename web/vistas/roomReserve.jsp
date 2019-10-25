@@ -4,6 +4,7 @@
     Author     : alvaro
 --%>
 
+<%@page import="Clases.Reserva"%>
 <%@page import="Clases.Franja"%>
 <%@page import="Utilidades.ConexionEstatica"%>
 <%@page import="Clases.Aula"%>
@@ -125,6 +126,8 @@
                     
                     ArrayList<Franja> franjas = ConexionEstatica.obtenerFranjas();
                     
+                    ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas();
+                    
                     for (int i = 0; i < franjas.size(); i++) {
                     
                     %>
@@ -132,7 +135,7 @@
                                 <td role="cell"><%out.println(franjas.get(i).getFrStart());%></td>
                                 <td role="cell"><%out.println(franjas.get(i).getFrEnd());%></td>
                                 <td role="cell">
-                                    <input type="button" value="Reservar"/>
+                                    <input type="button" value="Libre"/>
                                 </td>
                             </tr>
                     <%
