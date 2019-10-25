@@ -41,20 +41,33 @@ input {
 }
 
 #aulas {
-    display: flex; 
-        
+    display: flex;
+    
     width: 100%;
     min-height: fit-content;
-    background-color: yellow;
+    background-color: blue;
+}
+
+#divFecha {
+    float: left;
+    width: 50%;
+}
+
+#divAula {
+    float: left;
+    width: 50%;
+}
+
+#divBoton {
+    height: fit-content;
+    clear: left;
 }
 
 #reservar div {
     
-    width: -webkit-fill-available !important;
-    
     padding-top: 5%;
     justify-self: center;
-    width: inherit;
+    
     text-align: center;
 }
 
@@ -92,8 +105,8 @@ img {
 }
 
 #checkAula {
+    min-height: 50px;
     width: 50%;
-    height: 50%;
     background-image: url(../img/checked.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -115,9 +128,6 @@ img {
     min-width: 360px;
     min-height: 630px;
     float: left;
-    display: grid;
-    grid-template-columns: repeat(3, 33.3333%);
-    grid-template-rows: repeat(6, 16.667%);
 }
 
 #reservas {
@@ -134,8 +144,12 @@ img {
     width: 50%;
 }
 
-table input {
-    width: 70px;
+table input[type = 'submit'] {
+    width: 80px;
+}
+
+table input[type = 'text'] {
+    width: 40px;
 }
 
 nav {

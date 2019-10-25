@@ -5,10 +5,25 @@
  */
 package Utilidades;
 
+import Clases.Reserva;
+import java.util.ArrayList;
+
 /**
  *
  * @author alvaro
  */
 public class Auxiliar {
+    
+    public static boolean isReserved (ArrayList<Reserva> reservas, int idFranja) {
+        
+        boolean res = false;
+        
+        for (int i = 0; i < reservas.size() && !res; i++) {
+            if (reservas.get(i).getIdFranja() == idFranja) res = true;
+            
+        }
+        
+        return res;
+    }
     
 }

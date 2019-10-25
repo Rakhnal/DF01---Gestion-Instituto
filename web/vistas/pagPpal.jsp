@@ -66,8 +66,13 @@
                     </li>
                     <%
                         }
+
+                        if (conectado.getIdRols().contains(Constantes.typeUsr)) {
                     %>
                     <li><a href="roomReserve.jsp">Profesor</a></li>
+                    <%
+                        }
+                    %>
                 </ul>
             </nav>
             

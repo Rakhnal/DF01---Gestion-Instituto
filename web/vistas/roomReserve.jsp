@@ -4,6 +4,7 @@
     Author     : alvaro
 --%>
 
+<%@page import="Utilidades.Auxiliar"%>
 <%@page import="Clases.Reserva"%>
 <%@page import="Clases.Franja"%>
 <%@page import="Utilidades.ConexionEstatica"%>
@@ -72,8 +73,13 @@
                     </li>
                     <%
                         }
+
+                        if (conectado.getIdRols().contains(Constantes.typeUsr)) {
                     %>
                     <li><a href="roomReserve.jsp">Profesor</a></li>
+                    <%
+                        }
+                    %>
                 </ul>
             </nav>
             
@@ -84,66 +90,98 @@
         
         <div id = "ppal">
             <div id = "reservar">
-                <div>
-                    <p>Fecha</p>
-                    <input type = "date" id = "fecha"/>
-                </div>
-                <div>
-                    <p>Aula</p>
-                    <select type = 'text' name = 'selType'>
+                <form name = "indexForm" action="../controladores/userControl.jsp" method="POST">
+                    <div id="divFecha">
+                        <p>Fecha</p>
+                        <input type = "date" id = "fecha" name="fecha"/>
+                    </div>
+                    <div id="divAula">
+                        <p>Aula</p>
+                        <select type = 'text' name = 'selType'>
+
+                            <%
+
+                            ConexionEstatica.abrirBD();
+
+                            ArrayList<Aula> aulas = ConexionEstatica.obtenerAulas();
+
+                            for (int i = 0; i < aulas.size(); i++) {
+                                Aula aula = aulas.get(i);
+                                %>
+                                <option value = '<%out.print(aula.getIdAula());%>'><%out.print(aula.getIdAula());%> - <%out.print(aula.getDescripcion());%></option>
+                                <%
+                            }
+                            %>
+                        </select>
+                    </div>
+                    <div id="divBoton">
+                        <input type='submit' value = '' name = 'checkAula' id="checkAula"/>
+                    </div>
+
+                    <div id="aulas" style="grid-column: span 3">
                         
                         <%
                         
-                        ConexionEstatica.abrirBD();
+                        if (session.getAttribute("reservas") != null) {
                             
-                        ArrayList<Aula> aulas = ConexionEstatica.obtenerAulas();
+                            ArrayList<Reserva> reservas = (ArrayList<Reserva>) session.getAttribute("reservas");
                         
-                        for (int i = 0; i < aulas.size(); i++) {
-                            Aula aula = aulas.get(i);
-                            %>
-                            <option value = '<%out.print(aula.getIdAula());%>' default><%out.print(aula.getIdAula());%> - <%out.print(aula.getDescripcion());%></option>
-                            <%
-                        }
                         %>
-                    </select>
-                </div>
-                <div>
-                    <input type='button' value = '' name = 'checkAula' id="checkAula"/>
-                </div>
-                    
-                <div id="aulas" style="grid-column: span 3">
-                    
-                    <table role="table">
-                        <thead role="rowgroup">
-                          <tr role="row">
-                            <th role="columnheader">HORA COMIENZO</th>
-                            <th role="columnheader">HORA FINAL</th>
-                            <th role="columnheader">RESERVADO</th>
-                          </tr>
-                        </thead>
-                        <tbody role="rowgroup">
-                    <%
-                    
-                    ArrayList<Franja> franjas = ConexionEstatica.obtenerFranjas();
-                    
-                    ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas();
-                    
-                    for (int i = 0; i < franjas.size(); i++) {
-                    
-                    %>
-                            <tr role="row">
-                                <td role="cell"><%out.println(franjas.get(i).getFrStart());%></td>
-                                <td role="cell"><%out.println(franjas.get(i).getFrEnd());%></td>
-                                <td role="cell">
-                                    <input type="button" value="Libre"/>
-                                </td>
-                            </tr>
-                    <%
-                    }
-                    %>
-                        </tbody>
-                    </table>
-                </div>
+                            <table role="table">
+                                <thead role="rowgroup">
+                                  <tr role="row">
+                                      <th role="columnheader">NUM. FRANJA</th>
+                                    <th role="columnheader">HORA COMIENZO</th>
+                                    <th role="columnheader">HORA FINAL</th>
+                                    <th role="columnheader">RESERVADO</th>
+                                  </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                            <%
+
+                            ArrayList<Franja> franjas = ConexionEstatica.obtenerFranjas();
+
+                            for (int i = 0; i < franjas.size(); i++) {
+
+                            %>
+                                    <tr role="row">
+                                        <td role="cell">
+                                            <input type="text" readonly name="idfranja" id="idfranja" value="<%out.println(franjas.get(i).getIdFranja());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="frstart" id="frstart" value="<%out.println(franjas.get(i).getFrStart());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="frend" id="frend" value="<%out.println(franjas.get(i).getFrEnd());%>">
+                                        </td>
+                                        <%
+                                        if (Auxiliar.isReserved(reservas, franjas.get(i).getIdFranja())) {
+                                        %>
+                                        <td role="cell">
+                                            <input type="submit" value="Reservado" name="buttonReserve" disabled id="<%=i%>"/>
+                                        </td>
+                                        <%
+                                        } else {
+                                        %>
+                                        <td role="cell">
+                                            <input type="submit" value="Libre" name="buttonReserve" id="<%=i%>"/>
+                                        </td> 
+                                        <%
+                                        }
+                                        %>
+                                    </tr>
+                            <%
+                            }
+                            %>
+                                </tbody>
+                            </table>
+                        <%
+                        
+                        }
+
+                        %>
+                    </div>
+                </form>
             </div>
             
             <div id = "reservas">

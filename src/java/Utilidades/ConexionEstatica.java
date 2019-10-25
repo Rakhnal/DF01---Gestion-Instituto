@@ -139,15 +139,20 @@ public class ConexionEstatica {
     }
     
     /**
-     * Obtiene todas las reservas que haya en BBDD
+     * Obtiene las reservas en la BBDD en la fecha y aula indicadas
+     * @param fecha
+     * @param idAula
      * @return 
      */
-    public static ArrayList<Reserva> obtenerReservas() {
+    public static ArrayList<Reserva> obtenerReservas(String fecha, int idAula) {
         ArrayList<Reserva> reservas = new ArrayList<>();
         Reserva reserva = null;
         try {
-            String sentencia = "SELECT * FROM reservas";
-            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            String sentencia = "SELECT * FROM reservas WHERE IDAULA = ? AND FECHA = ?";
+            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+            sentenciaPreparada.setInt(1, idAula);
+            sentenciaPreparada.setString(2, fecha);
+            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
             while(Conj_Registros.next()){
                 reserva = new Reserva(Conj_Registros.getString("dni"), Conj_Registros.getInt("idAula"), Conj_Registros.getInt("idFranja"), Conj_Registros.getDate("fecha"));
                 reservas.add(reserva);
