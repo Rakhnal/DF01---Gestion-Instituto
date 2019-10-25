@@ -33,6 +33,12 @@
     </head>
     <body>
 
+        <%
+        
+            session.setAttribute("sesUsr", null);
+
+        %>
+        
         <div id="ppal">
             <form name="logForm" onsubmit="return comprobarCampos()" action="controladores/controlador.jsp" method="POST">
 

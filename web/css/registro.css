@@ -38,8 +38,6 @@ img {
 }
 
 div {
-    z-index: -1;
-    
     grid-column: span 2;
     display: flex;
     align-items: center;
@@ -51,6 +49,13 @@ fieldset {
 }
 
 input[type = 'submit'] {
+    border: none;
+    background: none;
+    width: 60px;
+    height: 60px;
+}
+
+input[type = 'button'] {
     border: none;
     background: none;
     width: 60px;
@@ -83,6 +88,11 @@ form {
 }
 
 header {
+    
+    position: absolute;
+    
+    z-index: 10;
+    
     margin-top: 20px;
     min-height: 100px;
     
@@ -151,4 +161,10 @@ select {
     background-image: url("../img/cross.png");
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+footer {
+    position: absolute !important;
+    bottom: 1% !important;
+    left: 1% !important;
 }

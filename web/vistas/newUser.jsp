@@ -56,10 +56,12 @@
                     if (apellido === "") {
                         $('#apellido').css("border", "2px solid red");
                         $('#imgApellido').css("visibility", "visible");
+                        $('#imgApellido').attr('title', 'Tienes que introducir un apellido');
                         allOK = false;
                     } else {
                         $('#apellido').css("border", "1px solid black");
                         $('#imgApellido').css("visibility", "hidden");
+                        $('#imgApellido').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -70,14 +72,17 @@
                     if (dni === "") {
                         $('#dni').css("border", "2px solid red");
                         $('#imgDni').css("visibility", "visible");
+                        $('#imgDni').attr('title', 'Tienes que introducir un DNI');
                         allOK = false;
                     } else if (!nif(dni)) {
                         $('#dni').css("border", "2px solid red");
                         $('#imgDni').css("visibility", "visible");
+                        $('#imgDni').attr('title', 'Tienes que introducir un DNI válido');
                         allOK = false;
                     } else {
                         $('#dni').css("border", "1px solid black");
                         $('#imgDni').css("visibility", "hidden");
+                        $('#imgDni').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -89,14 +94,17 @@
                     if (correo === "") {
                         $('#correo').css("border", "2px solid red");
                         $('#imgCorreo').css("visibility", "visible");
+                        $('#imgCorreo').attr('title', 'Tienes que introducir un correo');
                         allOK = false;
                     } else if (!validateEmail(correo)) {
                         $('#correo').css("border", "2px solid red");
                         $('#imgCorreo').css("visibility", "visible");
+                        $('#imgCorreo').attr('title', 'Tienes que introducir un correo válido');
                         allOK = false;
                     } else {
                         $('#correo').css("border", "1px solid black");
                         $('#imgCorreo').css("visibility", "hidden");
+                        $('#imgCorreo').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -107,10 +115,12 @@
                     if (pass === "") {
                         $('#pass').css("border", "2px solid red");
                         $('#imgPass').css("visibility", "visible");
+                        $('#imgPass').attr('title', 'Tienes que introducir una contraseña');
                         allOK = false;
                     } else {
                         $('#pass').css("border", "1px solid black");
                         $('#imgPass').css("visibility", "hidden");
+                        $('#imgPass').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -123,14 +133,17 @@
                     if (passVal === "") {
                         $('#passVal').css("border", "2px solid red");
                         $('#imgPassVal').css("visibility", "visible");
+                        $('#imgPassVal').attr('title', 'Tienes que introducir una contraseña');
                         allOK = false;
                     } else if (pass !== passVal) {
                         $('#passVal').css("border", "2px solid red");
                         $('#imgPassVal').css("visibility", "visible");
+                        $('#imgPassVal').attr('title', 'Tienes que introducir la misma contraseña');
                         allOK = false;
                     } else {
                         $('#passVal').css("border", "1px solid black");
                         $('#imgPassVal').css("visibility", "hidden");
+                        $('#imgPassVal').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -141,10 +154,12 @@
                     if (edad === "") {
                         $('#edad').css("border", "2px solid red");
                         $('#imgEdad').css("visibility", "visible");
+                        $('#imgEdad').attr('title', 'Tienes que seleccionar la edad');
                         allOK = false;
                     } else {
                         $('#edad').css("border", "1px solid black");
                         $('#imgEdad').css("visibility", "hidden");
+                        $('#imgEdad').attr('title', '');
                         allOK = true;
                     }
                 }
@@ -278,7 +293,7 @@
                 </div>
 
                 <input type='submit' value = '' name = 'register' id="register"/>
-                <input type='submit' value = '' name = 'backRegister' id="back"/>
+                <input type='button' value = '' onclick='window.location = "../index.jsp"' name = 'backRegister' id="back"/>
             </form>
         </div>
     </body>

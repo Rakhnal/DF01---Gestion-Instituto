@@ -1,5 +1,7 @@
 package Utilidades;
 
+import Clases.Aula;
+import Clases.Franja;
 import Clases.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
@@ -70,6 +72,11 @@ public class ConexionEstatica {
         return existe; //Si devolvemos null el usuario no existe.
     }
     
+    /**
+     * Carga todos los roles del usuario
+     * @param dni
+     * @return 
+     */
     public static ArrayList<Integer> cargarRoles(String dni) {
         ArrayList<Integer> roles = new ArrayList<>();
         try {
@@ -90,21 +97,44 @@ public class ConexionEstatica {
         return roles; //Si devolvemos null no hay roles.
     }
     
-    // Obtener todos los usuarios asociados al admin
-    public static ArrayList<Usuario> obtenerUsuariosAdmin(String user) {
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        Usuario usu = null;
+    /**
+     * Obtiene todas las aulas que haya en BBDD
+     * @return 
+     */
+    public static ArrayList<Franja> obtenerFranjas() {
+        ArrayList<Franja> franjas = new ArrayList<>();
+        Franja franja = null;
         try {
-            String sentencia = "SELECT * FROM usuarios WHERE admin = '" + user + "' ORDER BY admin";
+            String sentencia = "SELECT * FROM franjas";
             ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
             while(Conj_Registros.next()){
-                
-                //usu = new Usuario(Conj_Registros.getString("user"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getString("type"), Conj_Registros.getInt("contSesion"), Conj_Registros.getString("admin"));
-                usuarios.add(usu);
+                franja = new Franja(Conj_Registros.getInt("idAula"), Conj_Registros.getString("frStart"), Conj_Registros.getString("frEnd"));
+                franjas.add(franja);
             }
         } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
         }
-        return usuarios;
+        return franjas;
+    }
+    
+    /**
+     * Obtiene todas las aulas que haya en BBDD
+     * @return 
+     */
+    public static ArrayList<Aula> obtenerAulas() {
+        ArrayList<Aula> aulas = new ArrayList<>();
+        Aula aula = null;
+        try {
+            String sentencia = "SELECT * FROM aulas";
+            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            while(Conj_Registros.next()){
+                aula = new Aula(Conj_Registros.getInt("idAula"), Conj_Registros.getString("descripcion"));
+                aulas.add(aula);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return aulas;
     }
 
     // Obtener todos los usuarios (Super administrador)
@@ -166,7 +196,7 @@ public class ConexionEstatica {
         
         String sentenciaRoles = "INSERT INTO roles VALUES (?,?)";
         
-        PreparedStatement sentenciaPrepRoles = ConexionEstatica.Conex.prepareStatement(sentencia);
+        PreparedStatement sentenciaPrepRoles = ConexionEstatica.Conex.prepareStatement(sentenciaRoles);
         sentenciaPrepRoles.setString(1, dni);
         sentenciaPrepRoles.setInt(2, Constantes.typeUsr);
         

@@ -139,7 +139,7 @@
                 String userName = request.getParameter("user");
                 int edad = Integer.parseInt(request.getParameter("edad"));
 
-                usuarios = ConexionEstatica.obtenerUsuariosAdmin(admin.getCorreo());
+                // usuarios = ConexionEstatica.obtenerUsuariosAdmin(admin.getCorreo());
 
                 ConexionEstatica.Borrar_Dato(Constantes.usuarios, userName);
                 response.sendRedirect("vistas/crud.jsp");

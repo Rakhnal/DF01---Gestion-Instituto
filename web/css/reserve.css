@@ -17,6 +17,8 @@ body {
 }
 
 header {
+    position: fixed;
+    
     padding-top: 5px;
     padding-bottom: 5px;
     width: 100%;
@@ -27,14 +29,31 @@ header {
     box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
 }
 
+p {
+    display: inline;
+}
+
 input {
     margin-right: 15px;
     width: 30px;
     height: 30px;
     border: none;
-    color: white;
-    float: right;
-    background-color: transparent;
+}
+
+#aulas {
+    width: 100%;
+    min-height: fit-content;
+    background-color: yellow;
+}
+
+#reservar div {
+    
+    width: -webkit-fill-available !important;
+    
+    padding-top: 5%;
+    justify-self: center;
+    width: inherit;
+    text-align: center;
 }
 
 img {
@@ -46,47 +65,14 @@ img {
     vertical-align: middle;
 }
 
-div {
-    justify-self: center;
-    text-align: center;
-}
-
-div img {
-    justify-self: center !important;
-    height: max-content !important;
-    width: auto !important;
-}
-
-h1 {
-    justify-self: center;
-    font-size: 4em;
-}
-
-#content {
-    
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 50% 50%;
-    
-    z-index: -1;
-    position: relative;
-    min-height: 550px;
-    width: 500px;
-    background-color: white;
-    float: right;
-    right: 10%;
-    top: 25%;
-    -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-    -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-    box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
-}
-
 #about {
     margin-top: 10px;
     background-image: url(../img/info.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
+    background-color: transparent;
+    float: right;
 }
 
 #cese {
@@ -94,7 +80,52 @@ h1 {
     background-image: url(../img/logout.png);
     background-repeat: no-repeat;
     background-position: center;
+    background-color: transparent;
     background-size: contain;
+    float: right;
+}
+
+#checkAula {
+    width: 50%;
+    height: 50%;
+    background-image: url(../img/checked.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-color: transparent;
+    justify-self: center;
+}
+
+#ppal {
+    width: 100%;
+    min-height: 600px;
+    padding-top: 60px;
+}
+
+#reservar {
+    width: 50%;
+    background-color: red;
+    
+    min-width: 360px;
+    min-height: 630px;
+    float: left;
+    display: grid;
+    grid-template-columns: repeat(3, 33.3333%);
+    grid-template-rows: repeat(6, 16.667%);
+}
+
+#reservas {
+    
+    min-width: 360px;
+    min-height: 630px;
+    float: left;
+    
+    width: 50%;
+    background-color: blue;
+}
+
+#fecha {
+    width: 50%;
 }
 
 nav {
@@ -146,7 +177,6 @@ nav li:hover > ul {
 }
 
 footer {
-    position: absolute !important;
     bottom: 1% !important;
     left: 1% !important;
 }
