@@ -6,6 +6,7 @@
 package Utilidades;
 
 import Clases.Reserva;
+import Clases.Usuario;
 import java.util.ArrayList;
 
 /**
@@ -24,6 +25,22 @@ public class Auxiliar {
         }
         
         return res;
+    }
+    
+    public static ArrayList<Usuario> obtenerRoles(ArrayList<Usuario> users) {
+        
+        ArrayList<Usuario> finales = new ArrayList<>();
+        
+        for (int i = 0; i < users.size(); i++) {
+            
+            Usuario nuevo = users.get(i);
+            
+            nuevo.setIdRols(ConexionEstatica.cargarRoles(nuevo.getDni()));
+            
+            finales.add(nuevo);
+        }
+        
+        return finales;
     }
     
 }

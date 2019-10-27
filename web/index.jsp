@@ -34,7 +34,8 @@
     <body>
 
         <%
-        
+            
+            session.setAttribute("reservas", null);
             session.setAttribute("sesUsr", null);
 
         %>

@@ -30,8 +30,9 @@ public class Usuario {
     private int numLogins;
     private Blob foto;
     private byte [] fotoBytes;
+    private int activo;
 
-    public Usuario(String dni, String correo, String nombre, String apellido, int edad, String pass, int numLogins, Blob foto, byte [] fotoBytes) {
+    public Usuario(String dni, String correo, String nombre, String apellido, int edad, String pass, int numLogins, Blob foto, byte [] fotoBytes, int activo) {
         this.dni = dni;
         this.correo = correo;
         this.nombre = nombre;
@@ -42,8 +43,17 @@ public class Usuario {
         this.foto = foto;
         this.fotoBytes = fotoBytes;
         this.idRols = new ArrayList<>();
+        this.activo = activo;
     }
 
+    public int getActivo() {
+        return activo;
+    }
+
+    public void setActivo(int activo) {
+        this.activo = activo;
+    }
+    
     public String getDni() {
         return dni;
     }

@@ -4,6 +4,7 @@
     Author     : alvaro
 --%>
 
+<%@page import="Utilidades.Auxiliar"%>
 <%@page import="Clases.Aula"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Utilidades.ConexionEstatica"%>
@@ -19,6 +20,7 @@
         
         <link rel="stylesheet" type="text/css" href="../css/opPages.css">
         <script src="../scripts/jquery-3.4.1.min.js"></script>
+        <script src="../scripts/headerscroll.js"></script>
         
         <script>
 
@@ -44,7 +46,7 @@
                 Usuario conectado = (Usuario) session.getAttribute("sesUsr");
         %>
         
-        <header>
+        <header id="header">
             
             <nav>
                 <ul>
@@ -53,8 +55,8 @@
                     %>
                     <li><a href="#">Administrador de Aulas</a>
                         <ul>
-                            <li><a href="franjasAdmin.jsp">Administración de franjas</a></li>
-                            <li><a href="roomAdmin.jsp">Administración de aulas</a></li>
+                            <li><a href="franjasAdmin.jsp">Administrar franjas</a></li>
+                            <li><a href="roomAdmin.jsp">Administrar aulas</a></li>
                         </ul>
                     </li>
 
@@ -65,7 +67,7 @@
                     %>
                     <li><a href="#">Administrador General</a>
                         <ul>
-                            <li><a href="userAdmin.jsp">Administración usuarios</a></li>
+                            <li><a href="userAdmin.jsp">Administrar usuarios</a></li>
                             <li><a href="bitacora.jsp">Bitácora</a></li>
                         </ul>
                     </li>
@@ -91,40 +93,104 @@
                 
                 <h1>Usuarios registrados</h1>
                 
-                <div id="aulasAdmin">
+                <div id="userAdmin">
                         
                         <%
                             ArrayList<Usuario> usuarios = ConexionEstatica.obtenerUsuarios();
                             
                             if (null != usuarios && usuarios.size() > 0) {
+                                
+                                ArrayList<Usuario> usuariosRoles = Auxiliar.obtenerRoles(usuarios);
                         %>
                             <table role="table">
                                 <thead role="rowgroup">
                                   <tr role="row">
+                                    <th role="columnheader">DNI</th>
+                                    <th role="columnheader">CORREO</th>
                                     <th role="columnheader">NOMBRE</th>
-                                    <th role="columnheader">DESCRIPCIÓN</th>
+                                    <th role="columnheader">APELLIDO</th>
+                                    <th role="columnheader">EDAD</th>
+                                    <th role="columnheader">ROLES</th>
+                                    <th role="columnheader">ESTADO</th>
                                     <th role="columnheader" class="transparent"></th>
                                     <th role="columnheader" class="transparent"></th>
                                   </tr>
                                 </thead>
                                 <tbody role="rowgroup">
                             <%
-                            for (int i = 0; i < usuarios.size(); i++) {
+                            for (int i = 0; i < usuariosRoles.size(); i++) {
                                 
+                            Usuario user = usuariosRoles.get(i);
+                            
                             %>
                                 <form name = "rowFormAulas" action="../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
-                                            <input type="text" readonly name="aulaName" id="aula<%=usuarios.get(i).getIdAula()%>" value="<%out.println(usuarios.get(i).getIdAula());%>">
+                                            <input type="text" class="large" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="aulaDesc" id="aulaDesc<%=usuarios.get(i).getIdAula()%>" value="<%out.println(usuarios.get(i).getDescripcion());%>">
+                                            <input type="text" class="large" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" class="large" name="nombre" id="nombre<%=user.getDni()%>" value="<%out.println(user.getNombre());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" class="large" name="apellido" id="apellido<%=user.getDni()%>" value="<%out.println(user.getApellido());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" name="edad" id="edad<%=user.getDni()%>" value="<%out.println(user.getEdad());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <%
+                                            if(user.getIdRols().contains(Constantes.typeUsr)) {
+                                            %>
+                                            <input type="submit" class="especiales large" value="<%=Constantes.dropProfesor%>" name="profesor" id="profesor"/>
+                                            <%
+                                            } else {
+                                            %>
+                                                <input type="submit" class="especiales large" value="<%=Constantes.riseProfesor%>" name="profesor" id="profesor"/>
+                                            <%
+                                            }
+                                            
+                                            if(user.getIdRols().contains(Constantes.typeAdminau)) {
+                                            %>
+                                                <input type="submit" class="especiales large" value="<%=Constantes.dropAdminAu%>" name="adminAulas" id="adminAulas"/>
+                                            <%
+                                            } else {
+                                            %>
+                                                <input type="submit" class="especiales large" value="<%=Constantes.riseAdminAu%>" name="adminAulas" id="adminAulas"/>
+                                            <%
+                                            }
+                                            
+                                            if(user.getIdRols().contains(Constantes.typeAdminge)) {
+                                            %>
+                                                <input type="submit" class="especiales large" value="<%=Constantes.dropAdminGe%>" name="adminGen" id="adminGen"/>
+                                            <%
+                                            } else {
+                                            %>
+                                                <input type="submit" class="especiales large" value="<%=Constantes.riseAdminGe%>" name="adminGen" id="adminGen"/>
+                                            <%
+                                            }
+                                            %>
+                                        </td>
+                                        <td role="cell">
+                                            <%
+                                            if (user.getActivo() == Constantes.active) {
+                                            %>
+                                                <input type="submit" class="especiales" value="<%=Constantes.strDeactivate%>" name="confUser" id="confUser"/>
+                                            <%
+                                            } else {
+                                            %>
+                                                <input type="submit" class="especiales" value="<%=Constantes.strActivate%>" name="confUser" id="confUser"/>
+                                            <%
+                                            }
+                                            %>
                                         </td>
                                         <td role="cell" class="transparent">
-                                            <input type="submit" value="" name="modifyAula" id="modifyAula"/>
+                                            <input type="submit" value="" name="modifyUser" id="modifyUser"/>
                                         </td>
                                         <td role="cell" class="transparent">
-                                            <input type="submit" value="" name="deleteAula" id="deleteAula"/>
+                                            <input type="submit" value="" name="deleteUser" id="deleteUser"/>
                                         </td>
                                     </tr>
                                 </form>

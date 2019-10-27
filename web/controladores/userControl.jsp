@@ -21,6 +21,8 @@
         
         ConexionEstatica.abrirBD();
         
+        Usuario user = (Usuario) session.getAttribute("sesUsr");
+        
         if (request.getParameter("checkAula") != null) {
             
             String fecha = String.valueOf(request.getParameter("fecha"));
@@ -40,7 +42,6 @@
         
         if (request.getParameter("buttonReserve") != null) {
             
-            Usuario user = (Usuario) session.getAttribute("sesUsr");
             int idAula = (Integer) session.getAttribute("idAula");
             int idFranja = Integer.parseInt(request.getParameter("idfranja"));
             String fecha = (String) session.getAttribute("fecha");
@@ -59,7 +60,6 @@
         
         if (request.getParameter("cancel") != null) {
             
-            Usuario user = (Usuario) session.getAttribute("sesUsr");
             int idAula = Integer.parseInt(request.getParameter("idAula"));
             int idFranja = Integer.parseInt(request.getParameter("idFranja"));
             String fecha = request.getParameter("fechaReser");
@@ -123,7 +123,87 @@
             // Modificamos la franja en BBDD
             ConexionEstatica.modificarFranja(idFranja, frStart, frEnd);
             
-            response.sendRedirect("../vistas/roomAdmin.jsp");
+            response.sendRedirect("../vistas/franjasAdmin.jsp");
+        }
+        
+        if (request.getParameter("profesor") != null) {
+            
+            String dni = request.getParameter("dni");
+            
+            // Si tenemos que quitarle el rol o ponerselo
+            if (request.getParameter("profesor").equals(Constantes.dropProfesor)) {
+                ConexionEstatica.borrarRol(dni, Constantes.typeUsr);
+            } else {
+                ConexionEstatica.insertarRol(dni, Constantes.typeUsr);
+            }
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("adminAulas") != null) {
+            
+            String dni = request.getParameter("dni");
+            
+            // Si tenemos que quitarle el rol o ponerselo
+            if (request.getParameter("adminAulas").equals(Constantes.dropAdminAu)) {
+                ConexionEstatica.borrarRol(dni, Constantes.typeAdminau);
+            } else {
+                ConexionEstatica.insertarRol(dni, Constantes.typeAdminau);
+            }
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("adminGen") != null) {
+            
+            String dni = request.getParameter("dni");
+            
+            // Si tenemos que quitarle el rol o ponerselo
+            if (request.getParameter("adminGen").equals(Constantes.dropAdminGe)) {
+                ConexionEstatica.borrarRol(dni, Constantes.typeAdminge);
+            } else {
+                ConexionEstatica.insertarRol(dni, Constantes.typeAdminge);
+            }
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("confUser") != null) {
+            
+            String dni = request.getParameter("dni");
+            
+            // Si tenemos que actibar el usuario o desactivarlo
+            if (request.getParameter("confUser").equals(Constantes.strDeactivate)) {
+                ConexionEstatica.cambiarEstado(dni, Constantes.inactive);
+            } else {
+                ConexionEstatica.cambiarEstado(dni, Constantes.active);
+            }
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("modifyUser") != null) {
+            
+            String dni = request.getParameter("dni");
+            String nombre = request.getParameter("nombre");
+            String apellido = request.getParameter("apellido");
+            int edad = Integer.parseInt(request.getParameter("edad"));
+            
+            // Modificamos el usuario en BBDD
+            ConexionEstatica.modificarUsuario(dni, nombre, apellido, edad);
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("deleteUser") != null) {
+            
+            String dni = request.getParameter("dni");
+            String correo = request.getParameter("correo");
+            
+            // Borramos al usuario en BBDD, automaticamente se borran las reservas que tenga hechas y los roles
+            ConexionEstatica.borrarUsuario(dni, correo);
+            
+            response.sendRedirect("../vistas/userAdmin.jsp");
         }
         
         ConexionEstatica.cerrarBD();

@@ -11,11 +11,20 @@ package Utilidades;
  */
 public class Constantes {
     
+    // Administración de usuarios
+    public static String dropProfesor = "Quitar Profesor";
+    public static String riseProfesor = "Poner Profesor";
+    public static String dropAdminAu = "Quitar Admin Aulas";
+    public static String riseAdminAu = "Poner Admin Aulas";
+    public static String dropAdminGe = "Quitar Admin Gen.";
+    public static String riseAdminGe = "Poner Admin Gen.";
+    public static String strActivate = "Activar";
+    public static String strDeactivate = "Desactivar";
+    
     // Utilidades
     public static String ficheroBitacora = "bitacora.txt";
     public static int active = 1;
     public static int inactive = 0;
-    
     
     // Tipos
     public static int typeAdminge = 2;

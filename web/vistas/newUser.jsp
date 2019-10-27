@@ -156,6 +156,11 @@
                         $('#imgEdad').css("visibility", "visible");
                         $('#imgEdad').attr('title', 'Tienes que seleccionar la edad');
                         allOK = false;
+                    } if (edad >= 100) {
+                        $('#edad').css("border", "2px solid red");
+                        $('#imgEdad').css("visibility", "visible");
+                        $('#imgEdad').attr('title', 'Tienes que introducir una edad válida, menor de 100');
+                        allOK = false;
                     } else {
                         $('#edad').css("border", "1px solid black");
                         $('#imgEdad').css("visibility", "hidden");
@@ -287,7 +292,7 @@
                         <span>Edad:</span> 
                     </label>
                     <label class = 'left'>
-                        <input type='number' min = "18" max = "99" name='edad' id='edad'/>
+                        <input type='number' min = "18" max = "99" maxlength="3" name='edad' id='edad'/>
                         <img id = 'imgEdad' src="../img/warning.png" alt="error"/>
                     </label>
                 </div>

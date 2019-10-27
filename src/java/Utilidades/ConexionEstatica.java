@@ -66,32 +66,7 @@ public class ConexionEstatica {
             ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
             if (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
             {
-                existe = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("numLogins"), Conj_Registros.getBlob("foto"), Conj_Registros.getBytes("foto"));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Error en el acceso a la BD.");
-        }
-        return existe; //Si devolvemos null el usuario no existe.
-    }
-    
-    /**
-     * Comprobamos si existe el aula en BBDD
-     * @param idAula
-     * @return 
-     */
-    public static boolean existeAula(int idAula) {
-        boolean existe = false;
-        try {
-            
-            String sentencia = "SELECT * FROM aulas WHERE idaula = ?";
-        
-            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
-            sentenciaPreparada.setInt(1, idAula);
-            
-            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
-            if (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
-            {
-                existe = true;
+                existe = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("numLogins"), Conj_Registros.getBlob("foto"), Conj_Registros.getBytes("foto"), Conj_Registros.getInt("activo"));
             }
         } catch (SQLException ex) {
             System.out.println("Error en el acceso a la BD.");
@@ -214,14 +189,14 @@ public class ConexionEstatica {
 
     // Obtener todos los usuarios (Super administrador)
     public static ArrayList<Usuario> obtenerUsuarios() {
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        ArrayList<Usuario> usuarios = new ArrayList<>();
         Usuario usu = null;
         try {
-            String sentencia = "SELECT * FROM usuarios ORDER BY admin";
+            String sentencia = "SELECT * FROM usuarios ORDER BY NOMBRE";
             ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
             while(Conj_Registros.next()){
                 
-                //usu = new Usuario(Conj_Registros.getString("user"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getString("type"), Conj_Registros.getInt("contSesion"), Conj_Registros.getString("admin"));
+                usu = new Usuario(Conj_Registros.getString("dni"), Conj_Registros.getString("correo"), Conj_Registros.getString("nombre"), Conj_Registros.getString("apellido"), Conj_Registros.getInt("edad"), Conj_Registros.getString("password"), Conj_Registros.getInt("numLogins"), Conj_Registros.getBlob("foto"), Conj_Registros.getBytes("foto"), Conj_Registros.getInt("activo"));
                 usuarios.add(usu);
             }
         } catch (SQLException ex) {
@@ -381,7 +356,7 @@ public class ConexionEstatica {
      */
     public static void modificarFranja(int idFranja, String frStart, String frEnd) throws SQLException {
         
-        String sentencia = "UPDATE FRANJAS SET FRSTART = ? AND FREND = ? WHERE IDFRANJA = ?";
+        String sentencia = "UPDATE FRANJAS SET FRSTART = ?, FREND = ? WHERE IDFRANJA = ?";
         
         PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
         sentenciaPreparada.setString(1, frStart);
@@ -390,6 +365,96 @@ public class ConexionEstatica {
         
         sentenciaPreparada.executeUpdate();
     }
+    
+    /**
+     * Borra el usuario de la BBDD
+     * @param dni
+     * @param correo
+     * @throws SQLException 
+     */
+    public static void borrarUsuario(String dni, String correo) throws SQLException {
+        
+        String sentencia = "DELETE FROM USUARIOS WHERE DNI = ? AND CORREO = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setString(2, correo);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Modifica el usuario
+     * @param dni
+     * @param nombre
+     * @param apellido
+     * @param edad
+     * @throws SQLException 
+     */
+    public static void modificarUsuario(String dni, String nombre, String apellido, int edad) throws SQLException {
+        
+        String sentencia = "UPDATE USUARIOS SET NOMBRE = ?, APELLIDO = ?, EDAD = ? WHERE DNI = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, nombre);
+        sentenciaPreparada.setString(2, apellido);
+        sentenciaPreparada.setInt(3, edad);
+        sentenciaPreparada.setString(4, dni);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Cambia el estado del usuario
+     * @param dni
+     * @param estado
+     * @throws SQLException 
+     */
+    public static void cambiarEstado(String dni, int estado) throws SQLException {
+        
+        String sentencia = "UPDATE USUARIOS SET ACTIVO = ? WHERE DNI = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setInt(1, estado);
+        sentenciaPreparada.setString(2, dni);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Borra el rol de la tabla roles, quitandoselo al usuario
+     * @param dni
+     * @param rol
+     * @throws SQLException 
+     */
+    public static void borrarRol(String dni, int rol) throws SQLException {
+        
+        String sentencia = "DELETE FROM ROLES WHERE DNI = ? AND IDROL = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setInt(2, rol);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Inserta un rol de un usuario en la tabla roles
+     * @param dni
+     * @param rol
+     * @throws SQLException 
+     */
+    public static void insertarRol(String dni, int rol) throws SQLException {
+        
+        String sentencia = "INSERT INTO ROLES VALUES (?, ?)";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setInt(2, rol);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
 
     //----------------------------------------------------------
     public static void Borrar_Dato(String tabla, String user) throws SQLException {

@@ -25,6 +25,7 @@
         
         <link rel="stylesheet" type="text/css" href="../css/opPages.css">
         <script src="../scripts/jquery-3.4.1.min.js"></script>
+        <script src="../scripts/headerscroll.js"></script>
         
         <script>
 
@@ -50,7 +51,7 @@
                 Usuario conectado = (Usuario) session.getAttribute("sesUsr");
         %>
         
-        <header>
+        <header id="header">
             
             <nav>
                 <ul>

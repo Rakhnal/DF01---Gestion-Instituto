@@ -30,22 +30,30 @@
 
                 if (userObj.getPass().equals(Codificar.codifica(request.getParameter("pass")))) {
                     
-                    ArrayList<Integer> roles = ConexionEstatica.cargarRoles(userObj.getDni());
-                    
-                    userObj.setIdRols(roles);
-                    
-                    session.setAttribute("sesUsr", userObj);
-                    
-                    // Sumamos 1 al contador de inicio de sesión del usuario
-                    int cont = userObj.getNumLogins() + 1;
-                    ConexionEstatica.Modificar_Dato(Constantes.usuarios, "numLogins", Integer.toString(cont), userObj.getCorreo());
-                    
-                    if (userObj.getIdRols().contains(Constantes.typeAdminge) || userObj.getIdRols().contains(Constantes.typeAdminau)) {
-                        response.sendRedirect("../vistas/pagPpal.jsp");
-                    } else {
-                        response.sendRedirect("../vistas/roomReserve.jsp");
-                    }
+                    if (userObj.getActivo() == Constantes.active) {
+                        ArrayList<Integer> roles = ConexionEstatica.cargarRoles(userObj.getDni());
 
+                        userObj.setIdRols(roles);
+
+                        session.setAttribute("sesUsr", userObj);
+
+                        // Sumamos 1 al contador de inicio de sesión del usuario
+                        int cont = userObj.getNumLogins() + 1;
+                        ConexionEstatica.Modificar_Dato(Constantes.usuarios, "numLogins", Integer.toString(cont), userObj.getCorreo());
+
+                        if (userObj.getIdRols().contains(Constantes.typeAdminge) || userObj.getIdRols().contains(Constantes.typeAdminau)) {
+                            response.sendRedirect("../vistas/pagPpal.jsp");
+                        } else {
+                            response.sendRedirect("../vistas/roomReserve.jsp");
+                        }
+                    } else {
+                        %>
+                        <script>
+                            alert("El usuario está desactivado, consulte con un administrador general");
+                            location = '../index.jsp';
+                        </script>
+                        <%
+                    }
                 } else {
                     %>
                     <script>

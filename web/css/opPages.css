@@ -29,6 +29,8 @@ header {
     -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
+    
+    transition: 0.5s;
 }
 
 p {
@@ -154,7 +156,7 @@ select {
     background-size: contain;
 }
 
-#modifyAula {
+#modifyAula, #modifyFranja, #modifyUser {
     background-image: url(../img/save.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -162,15 +164,7 @@ select {
     background-size: contain;
 }
 
-#modifyFranja {
-    background-image: url(../img/save.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: transparent;
-    background-size: contain;
-}
-
-#deleteAula {
+#deleteAula, #deleteUser {
     background-image: url(../img/cross.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -223,6 +217,16 @@ select {
     margin-left: 20%;
 }
 
+#userAdmin {
+    padding: 5%;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 400px;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
 #reservar {
     width: 50%;
     min-width: 360px;
@@ -257,6 +261,17 @@ select {
     background-color: white;
     border: 2px solid #dcf2f1;
     border-radius: 25px;
+}
+
+.especiales {
+    width: 80px;
+    background-color: #edfffe;
+    border: 2px solid #dcf2f1;
+    border-radius: 25px;
+}
+
+.especiales:hover {
+    background-color: white;
 }
 
 #aulas table input[type = 'text'] {
@@ -401,7 +416,7 @@ and (max-device-width: 1250px)  {
         margin: 0 0 1rem 0;
     }
 
-    tr:nth-child(odd) {
+    td:nth-child(odd) {
         background-color: #edfffe;
     }
 
@@ -422,6 +437,10 @@ and (max-device-width: 1250px)  {
         width: 45%;
         padding-right: 10px;
         white-space: nowrap;
+    }
+    
+    footer {
+        visibility: hidden;
     }
 
     #aulas td:nth-of-type(1):before { content: "Num. Franja"; }
@@ -447,6 +466,16 @@ and (max-device-width: 1250px)  {
     #franjasAdmin td:nth-of-type(2):before { content: "Hora Comienzo"; }
     #franjasAdmin td:nth-of-type(3):before { content: "Hora Final"; }
     #franjasAdmin td:nth-of-type(4):before { content: ""; }
+    
+    #userAdmin td:nth-of-type(1):before { content: "DNI"; }
+    #userAdmin td:nth-of-type(2):before { content: "Correo"; }
+    #userAdmin td:nth-of-type(3):before { content: "Nombre"; }
+    #userAdmin td:nth-of-type(4):before { content: "Apellido"; }
+    #userAdmin td:nth-of-type(5):before { content: "Edad"; }
+    #userAdmin td:nth-of-type(6):before { content: "Roles"; }
+    #userAdmin td:nth-of-type(7):before { content: "Estado"; }
+    #userAdmin td:nth-of-type(8):before { content: ""; }
+    #userAdmin td:nth-of-type(9):before { content: ""; }
 }
 
 @media
