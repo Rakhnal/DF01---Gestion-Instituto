@@ -17,8 +17,10 @@ body {
 }
 
 header {
+    z-index: 10;
+
     position: fixed;
-    
+
     padding-top: 5px;
     padding-bottom: 5px;
     width: 100%;
@@ -30,7 +32,8 @@ header {
 }
 
 p {
-    display: inline;
+    font-weight: bold;
+    margin: 0;
 }
 
 input {
@@ -42,10 +45,13 @@ input {
 
 #aulas {
     display: flex;
-    
+
     width: 100%;
     min-height: fit-content;
-    background-color: blue;
+    padding-top: 0 !important;
+
+    background-color: white;
+    border-radius: 10px;
 }
 
 #divFecha {
@@ -64,15 +70,24 @@ input {
 }
 
 #reservar div {
-    
+
     padding-top: 5%;
     justify-self: center;
-    
+
     text-align: center;
 }
 
 table {
     flex: 1;
+    border-collapse: collapse;
+}
+
+table input {
+    margin-right: 0 !important;
+}
+
+table, th, td {
+    border-bottom: 1px solid #edfffe;
 }
 
 img {
@@ -82,6 +97,17 @@ img {
     border-radius: 25%;
     float: right;
     vertical-align: middle;
+}
+
+h1 {
+    margin-top: 1%;
+    background-color: white;
+    border: 2px solid #dcf2f1;
+}
+
+select {
+    height: 30px;
+    width: 100%;
 }
 
 #about {
@@ -104,52 +130,102 @@ img {
     float: right;
 }
 
-#checkAula {
-    min-height: 50px;
-    width: 50%;
-    background-image: url(../img/checked.png);
+#cancel {
+    background-image: url(../img/cross.png);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
     background-color: transparent;
+    background-size: contain;
+}
+
+#checkAula {
+    min-height: 60px;
+    width: 60px;
+    background-image: url(../img/search.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 40px;
+    background-color: white;
+    border-radius: 50%;
     justify-self: center;
+    margin-bottom: 5%;
 }
 
 #ppal {
     width: 100%;
-    min-height: 600px;
+    min-height: 400px;
     padding-top: 60px;
 }
 
 #reservar {
     width: 50%;
-    background-color: red;
-    
     min-width: 360px;
-    min-height: 630px;
+    min-height: 400px;
     float: left;
 }
 
 #reservas {
-    
+
+    text-align: center;
+
     min-width: 360px;
-    min-height: 630px;
+    min-height: 400px;
     float: left;
-    
+
     width: 50%;
-    background-color: blue;
 }
 
 #fecha {
-    width: 50%;
+    width: 100%;
 }
 
-table input[type = 'submit'] {
+#aulas table input[type = 'submit'] {
     width: 80px;
+    background-color: #edfffe;
+    border: 2px solid #dcf2f1;
+    border-radius: 25px;
 }
 
-table input[type = 'text'] {
+#aulas table input[type = 'submit']:hover {
+    width: 80px;
+    background-color: white;
+    border: 2px solid #dcf2f1;
+    border-radius: 25px;
+}
+
+#aulas table input[type = 'text'] {
     width: 40px;
+    background: none;
+    text-align: center;
+}
+
+#aulasUser table input[type = 'text'] {
+    width: 80px;
+    background: none;
+    text-align: center;
+}
+
+#aulasUser table input[type = 'submit'] {
+    width: 40px;
+}
+
+#aulasUser {
+
+    background-color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.large {
+    width: 160px !important;
+
+}
+
+.bluestyle {
+    background-color: #dcf2f1;
+
+    padding-top: 0 !important;
+    margin-top: 5%;
 }
 
 nav {
@@ -204,4 +280,99 @@ footer {
     position: fixed;
     bottom: 1% !important;
     left: 1% !important;
+}
+
+tr td:nth-child(odd){ 
+    background-color: #edfffe;
+}
+
+.transparent{ 
+    background-color: transparent !important;
+}
+
+tr th:nth-child(odd){ 
+    background-color: #edfffe;
+}
+
+@media
+only screen 
+and (max-width: 1250px), (min-device-width: 0px) 
+and (max-device-width: 1250px)  {
+
+    body {
+        background-size: cover;
+    }
+
+    #aulas table input[type = 'submit'] {
+        background-color: white;
+    }
+    
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        margin: 0 0 1rem 0;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #edfffe;
+    }
+
+    td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #b8d1f3;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 0;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    #aulas td:nth-of-type(1):before { content: "Num. Franja"; }
+    #aulas td:nth-of-type(2):before { content: "Hora Comienzo"; }
+    #aulas td:nth-of-type(3):before { content: "Hora Final"; }
+    #aulas td:nth-of-type(4):before { content: "Estado"; }
+
+
+    #aulasUser td:nth-of-type(1):before { content: "Fecha Reserva"; }
+    #aulasUser td:nth-of-type(2):before { content: "Num. Franja"; }
+    #aulasUser td:nth-of-type(3):before { content: "Hora Comienzo"; }
+    #aulasUser td:nth-of-type(4):before { content: "Hora Final"; }
+    #aulasUser td:nth-of-type(5):before { content: "Aula"; }
+    #aulasUser td:nth-of-type(6):before { content: "Descripción"; }
+    #aulasUser td:nth-of-type(7):before { content: ""; }
+}
+
+@media
+only screen 
+and (max-width: 740px), (min-device-width: 0px) 
+and (max-device-width: 740px)  {
+
+    #reservar {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    #reservas {
+        min-width: 100%;
+        width: 100%;
+    }
 }

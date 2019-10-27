@@ -3,6 +3,7 @@ package Utilidades;
 import Clases.Aula;
 import Clases.Franja;
 import Clases.Reserva;
+import Clases.Reservado;
 import Clases.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
@@ -162,6 +163,29 @@ public class ConexionEstatica {
         }
         return reservas;
     }
+    
+    /**
+     * Obtiene las reservas del usuario
+     * @param dni
+     * @return 
+     */
+    public static ArrayList<Reservado> obtenerReservas(String dni) {
+        ArrayList<Reservado> reservados = new ArrayList<>();
+        Reservado reservado = null;
+        try {
+            String sentencia = "SELECT RS.fecha, FR.idFranja, FR.frStart, FR.frEnd, AU.idAula, AU.descripcion FROM AULAS AU, FRANJAS FR, RESERVAS RS, USUARIOS US WHERE US.dni = ? AND RS.dni = US.dni AND AU.idAula = RS.idAula AND FR.idFranja = RS.idFranja ORDER BY RS.fecha";
+            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+            sentenciaPreparada.setString(1, dni);
+            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
+            while(Conj_Registros.next()){
+                reservado = new Reservado(Conj_Registros.getString("fecha"), Conj_Registros.getInt("idFranja"), Conj_Registros.getString("frStart"), Conj_Registros.getString("frEnd"), Conj_Registros.getInt("idAula"), Conj_Registros.getString("descripcion"));
+                reservados.add(reservado);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return reservados;
+    }
 
     // Obtener todos los usuarios (Super administrador)
     public static ArrayList<Usuario> obtenerUsuarios() {
@@ -228,6 +252,50 @@ public class ConexionEstatica {
         
         sentenciaPrepRoles.executeUpdate();
         
+    }
+    
+    /**
+     * Inserta una reserva en la tabla reservas
+     * @param tabla
+     * @param dni
+     * @param idAula
+     * @param idFranja
+     * @param fecha
+     * @throws SQLException 
+     */
+    public static void Insertar_Reserva(String tabla, String dni, int idAula, int idFranja, String fecha) throws SQLException {
+        
+        String sentencia = "INSERT INTO " + tabla + " VALUES (?,?,?,?)";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setInt(2, idAula);
+        sentenciaPreparada.setInt(3, idFranja);
+        sentenciaPreparada.setString(4, fecha);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Borra una reserva en la tabla reservas
+     * @param tabla
+     * @param dni
+     * @param idAula
+     * @param idFranja
+     * @param fecha
+     * @throws SQLException 
+     */
+    public static void Borrar_Reserva(String tabla, String dni, int idAula, int idFranja, String fecha) throws SQLException {
+        
+        String sentencia = "DELETE FROM " + tabla + " WHERE DNI = ? AND IDAULA = ? AND IDFRANJA = ? AND FECHA = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, dni);
+        sentenciaPreparada.setInt(2, idAula);
+        sentenciaPreparada.setInt(3, idFranja);
+        sentenciaPreparada.setString(4, fecha);
+        
+        sentenciaPreparada.executeUpdate();
     }
 
     //----------------------------------------------------------

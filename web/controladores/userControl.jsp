@@ -26,6 +26,9 @@
             String fecha = String.valueOf(request.getParameter("fecha"));
             int idAula = Integer.parseInt(request.getParameter("selType"));
             
+            session.setAttribute("idAula", idAula);
+            session.setAttribute("fecha", fecha);
+            
             // Recuperamos las reservas de esa aula en esa fecha
             ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas(fecha, idAula);
             
@@ -33,6 +36,50 @@
             session.setAttribute("reservas", reservas);
             
             response.sendRedirect("../vistas/roomReserve.jsp");
+        }
+        
+        if (request.getParameter("buttonReserve") != null) {
+            
+            Usuario user = (Usuario) session.getAttribute("sesUsr");
+            int idAula = (Integer) session.getAttribute("idAula");
+            int idFranja = Integer.parseInt(request.getParameter("idfranja"));
+            String fecha = (String) session.getAttribute("fecha");
+            
+            ConexionEstatica.Insertar_Reserva(Constantes.reservas, user.getDni(), idAula, idFranja, fecha);
+            
+            // Recuperamos las reservas de esa aula en esa fecha
+            ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas(fecha, idAula);
+            
+            // Ponemos las reservas en la sesión para usarlo en la página
+            session.setAttribute("reservas", reservas);
+            
+            response.sendRedirect("../vistas/roomReserve.jsp");
+            
+        }
+        
+        if (request.getParameter("cancel") != null) {
+            
+            Usuario user = (Usuario) session.getAttribute("sesUsr");
+            int idAula = Integer.parseInt(request.getParameter("idAula"));
+            int idFranja = Integer.parseInt(request.getParameter("idFranja"));
+            String fecha = request.getParameter("fechaReser");
+            
+            ConexionEstatica.Borrar_Reserva(Constantes.reservas, user.getDni(), idAula, idFranja, fecha);
+            
+            // Si ha buscado una aula recargamos las reservas por si la reserva cancelada está en la tabla
+            if (session.getAttribute("idAula") != null && session.getAttribute("fecha") != null) {
+                
+                int idAulaRec = (Integer) session.getAttribute("idAula");
+                String fechaRec = (String) session.getAttribute("fecha");
+                
+                // Recuperamos las reservas de esa aula en esa fecha
+                ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas(fechaRec, idAulaRec);
+
+                // Ponemos las reservas en la sesión para usarlo en la página
+                session.setAttribute("reservas", reservas);
+
+                response.sendRedirect("../vistas/roomReserve.jsp");
+            }
         }
         
         ConexionEstatica.cerrarBD();

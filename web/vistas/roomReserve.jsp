@@ -4,6 +4,9 @@
     Author     : alvaro
 --%>
 
+<%@page import="Clases.Reservado"%>
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.util.Calendar"%>
 <%@page import="Utilidades.Auxiliar"%>
 <%@page import="Clases.Reserva"%>
 <%@page import="Clases.Franja"%>
@@ -91,11 +94,33 @@
         <div id = "ppal">
             <div id = "reservar">
                 <form name = "indexForm" action="../controladores/userControl.jsp" method="POST">
-                    <div id="divFecha">
+                    
+                    <%
+                    if (session.getAttribute("fecha") != null) {
+                        String fecha = (String) session.getAttribute("fecha");
+                    %>
+                    
+                    <div class = "bluestyle" id="divFecha">
                         <p>Fecha</p>
-                        <input type = "date" id = "fecha" name="fecha"/>
+                        <input type = "date" id = "fecha" name="fecha" value="<%=fecha%>"/>
                     </div>
-                    <div id="divAula">
+                    <%
+                    } else {
+                        Calendar now = Calendar.getInstance();
+                        int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
+                        int month = now.get(Calendar.MONTH) + 1;
+                        
+                        String monthStr = ((month < 10) ? "0" : "") + month;
+                        String fecha = now.get(Calendar.YEAR) + "-" + monthStr + "-" + dayOfMonth;
+                    %>
+                    <div class = "bluestyle" id="divFecha">
+                        <p>Fecha</p>
+                        <input type = "date" id = "fecha" name="fecha" value="<%=fecha%>"/>
+                    </div>
+                    <%
+                    }
+                    %>
+                    <div class = "bluestyle" id="divAula">
                         <p>Aula</p>
                         <select type = 'text' name = 'selType'>
 
@@ -130,10 +155,10 @@
                             <table role="table">
                                 <thead role="rowgroup">
                                   <tr role="row">
-                                      <th role="columnheader">NUM. FRANJA</th>
+                                    <th role="columnheader">NUM. FRANJA</th>
                                     <th role="columnheader">HORA COMIENZO</th>
                                     <th role="columnheader">HORA FINAL</th>
-                                    <th role="columnheader">RESERVADO</th>
+                                    <th role="columnheader">ESTADO</th>
                                   </tr>
                                 </thead>
                                 <tbody role="rowgroup">
@@ -144,6 +169,7 @@
                             for (int i = 0; i < franjas.size(); i++) {
 
                             %>
+                                <form name = "rowForm" action="../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
                                             <input type="text" readonly name="idfranja" id="idfranja" value="<%out.println(franjas.get(i).getIdFranja());%>">
@@ -170,6 +196,7 @@
                                         }
                                         %>
                                     </tr>
+                                </form>
                             <%
                             }
                             %>
@@ -186,8 +213,66 @@
             
             <div id = "reservas">
                 
+                <h1>Reservas del usuario</h1>
                 
-                
+                <div id="aulasUser">
+                        
+                        <%
+                            ArrayList<Reservado> reservas = ConexionEstatica.obtenerReservas(conectado.getDni());
+                            
+                            if (null != reservas && reservas.size() > 0) {
+                        %>
+                            <table role="table">
+                                <thead role="rowgroup">
+                                  <tr role="row">
+                                    <th role="columnheader">FECHA RESERVA</th>
+                                    <th role="columnheader">NUM. FRANJA</th>
+                                    <th role="columnheader">HORA COMIENZO</th>
+                                    <th role="columnheader">HORA FINAL</th>
+                                    <th role="columnheader">AULA</th>
+                                    <th role="columnheader">DESCRIPCIÓN</th>
+                                    <th role="columnheader" class="transparent"></th>
+                                  </tr>
+                                </thead>
+                                <tbody role="rowgroup">
+                            <%
+                            for (int i = 0; i < reservas.size(); i++) {
+                                
+                            %>
+                                <form name = "rowFormReserved" action="../controladores/userControl.jsp" method="POST">
+                                    <tr role="row">
+                                        <td role="cell">
+                                            <input type="text" readonly name="fechaReser" id="fechaReser" value="<%out.println(reservas.get(i).getFecha());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="idFranja" id="idFranja" value="<%out.println(reservas.get(i).getIdFranja());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="frStart" id="frStart" value="<%out.println(reservas.get(i).getFrStart());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="frEnd" id="frEnd" value="<%out.println(reservas.get(i).getFrEnd());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" readonly name="idAula" id="idAula" value="<%out.println(reservas.get(i).getIdAula());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" class="large" readonly name="descripcion" id="descripcion" value="<%out.println(reservas.get(i).getDescripcion());%>">
+                                        </td>
+                                        <td role="cell" class="transparent">
+                                            <input type="submit" value="" name="cancel" id="cancel"/>
+                                        </td>
+                                    </tr>
+                                </form>
+                            <%
+                            }
+                            %>
+                                </tbody>
+                            </table>
+                        <%
+                        }
+                        %>
+                    </div>
             </div>
         </div>
         
