@@ -70,7 +70,13 @@ input {
 }
 
 #reservar div {
+    padding-top: 5%;
+    justify-self: center;
 
+    text-align: center;
+}
+
+#rooms div {
     padding-top: 5%;
     justify-self: center;
 
@@ -91,6 +97,7 @@ table, th, td {
 }
 
 img {
+    cursor: pointer;
     margin-right: 10px;
     width: 50px;
     height: 50px;
@@ -100,6 +107,7 @@ img {
 }
 
 h1 {
+    text-align: center;
     margin-top: 1%;
     background-color: white;
     border: 2px solid #dcf2f1;
@@ -138,6 +146,38 @@ select {
     background-size: contain;
 }
 
+#addAula {
+    background-image: url(../img/plus.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+}
+
+#modifyAula {
+    background-image: url(../img/save.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+}
+
+#modifyFranja {
+    background-image: url(../img/save.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+}
+
+#deleteAula {
+    background-image: url(../img/cross.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: contain;
+}
+
 #checkAula {
     min-height: 60px;
     width: 60px;
@@ -155,6 +195,32 @@ select {
     width: 100%;
     min-height: 400px;
     padding-top: 60px;
+}
+
+#ppalRoom {
+    width: 100%;
+    min-height: 400px;
+    padding-top: 60px;
+}
+
+#aulasAdmin {
+    padding: 5%;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 400px;
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+#franjasAdmin {
+    padding: 5%;
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 250px;
+    margin-right: 20%;
+    margin-left: 20%;
 }
 
 #reservar {
@@ -194,6 +260,18 @@ select {
 }
 
 #aulas table input[type = 'text'] {
+    width: 40px;
+    background: none;
+    text-align: center;
+}
+
+#aulasAdmin table input[type = 'text'] {
+    width: 40px;
+    background: none;
+    text-align: center;
+}
+
+#franjasAdmin table input[type = 'text'] {
     width: 40px;
     background: none;
     text-align: center;
@@ -359,6 +437,16 @@ and (max-device-width: 1250px)  {
     #aulasUser td:nth-of-type(5):before { content: "Aula"; }
     #aulasUser td:nth-of-type(6):before { content: "Descripción"; }
     #aulasUser td:nth-of-type(7):before { content: ""; }
+    
+    #aulasAdmin td:nth-of-type(1):before { content: "Nombre"; }
+    #aulasAdmin td:nth-of-type(2):before { content: "Descripción"; }
+    #aulasAdmin td:nth-of-type(3):before { content: ""; }
+    #aulasAdmin td:nth-of-type(4):before { content: ""; }
+    
+    #franjasAdmin td:nth-of-type(1):before { content: "Num. Franja"; }
+    #franjasAdmin td:nth-of-type(2):before { content: "Hora Comienzo"; }
+    #franjasAdmin td:nth-of-type(3):before { content: "Hora Final"; }
+    #franjasAdmin td:nth-of-type(4):before { content: ""; }
 }
 
 @media
@@ -374,5 +462,15 @@ and (max-device-width: 740px)  {
     #reservas {
         min-width: 100%;
         width: 100%;
+    }
+    
+    #aulasAdmin {
+        margin-left: 0;
+        margin-right: 0;
+    }
+    
+    #franjasAdmin {
+        margin-left: 0;
+        margin-right: 0;
     }
 }

@@ -4,6 +4,7 @@
     Author     : alvaro
 --%>
 
+<%@page import="Clases.Franja"%>
 <%@page import="Clases.Aula"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Utilidades.ConexionEstatica"%>
@@ -21,7 +22,7 @@
         <script src="../scripts/jquery-3.4.1.min.js"></script>
         
         <script>
-
+            
             $(document).ready(function () {
 
                 $("#cese").click(function () {
@@ -89,62 +90,48 @@
         <div id = "ppalRoom">
             <div id = "rooms">
                 
-                <h1>Aulas disponibles</h1>
+                <h1>Franjas Horarias</h1>
                 
-                <div id="aulasAdmin">
+                <div id="franjasAdmin">
                         
                         <%
-                            ArrayList<Aula> aulas = ConexionEstatica.obtenerAulas();
+                            ArrayList<Franja> franjas = ConexionEstatica.obtenerFranjas();
                             
-                            if (null != aulas && aulas.size() > 0) {
+                            if (null != franjas && franjas.size() > 0) {
                         %>
                             <table role="table">
                                 <thead role="rowgroup">
                                   <tr role="row">
-                                    <th role="columnheader">NOMBRE</th>
-                                    <th role="columnheader">DESCRIPCIÓN</th>
-                                    <th role="columnheader" class="transparent"></th>
+                                    <th role="columnheader">NUM. FRANJA</th>
+                                    <th role="columnheader">HORA COMIENZO</th>
+                                    <th role="columnheader">HORA FINAL</th>
                                     <th role="columnheader" class="transparent"></th>
                                   </tr>
                                 </thead>
                                 <tbody role="rowgroup">
                             <%
-                            for (int i = 0; i < aulas.size(); i++) {
+                            for (int i = 0; i < franjas.size(); i++) {
                                 
                             %>
                                 <form name = "rowFormAulas" action="../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
-                                            <input type="text" readonly name="aulaName" id="aula<%=aulas.get(i).getIdAula()%>" value="<%out.println(aulas.get(i).getIdAula());%>">
+                                            <input type="text" readonly name="idFranja" id="idFranja<%=franjas.get(i).getIdFranja()%>" value="<%out.println(franjas.get(i).getIdFranja());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="aulaDesc" id="aulaDesc<%=aulas.get(i).getIdAula()%>" value="<%out.println(aulas.get(i).getDescripcion());%>">
+                                            <input type="text" class="large" maxlength="5" name="frStart" id="frStart<%=franjas.get(i).getFrStart()%>" value="<%out.println(franjas.get(i).getFrStart());%>">
+                                        </td>
+                                        <td role="cell">
+                                            <input type="text" class="large" maxlength="5" name="frEnd" id="frEnd<%=franjas.get(i).getFrEnd()%>" value="<%out.println(franjas.get(i).getFrEnd());%>">
                                         </td>
                                         <td role="cell" class="transparent">
-                                            <input type="submit" value="" name="modifyAula" id="modifyAula"/>
-                                        </td>
-                                        <td role="cell" class="transparent">
-                                            <input type="submit" value="" name="deleteAula" id="deleteAula"/>
+                                            <input type="submit" value="" name="modifyFranja" id="modifyFranja"/>
                                         </td>
                                     </tr>
                                 </form>
                             <%
                             }
                             %>
-                            
-                                <form name = "rowFormAdd" action="../controladores/userControl.jsp" method="POST">
-                                    <tr role="row">
-                                        <td role="cell">
-                                            <input type="text" name="aulaName" id="aulaName" value="">
-                                        </td>
-                                        <td role="cell">
-                                            <input type="text" class="large" name="aulaDesc" id="aulaDesc" value="">
-                                        </td>
-                                        <td role="cell" class="transparent">
-                                            <input type="submit" value="" name="addAula" id="addAula"/>
-                                        </td>
-                                    </tr>
-                                </form>
                                 </tbody>
                             </table>
                         <%

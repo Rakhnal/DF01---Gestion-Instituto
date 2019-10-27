@@ -82,6 +82,50 @@
             }
         }
         
+        if (request.getParameter("modifyAula") != null) {
+            
+            String descripcion = String.valueOf(request.getParameter("aulaDesc"));
+            int idAula = Integer.parseInt(request.getParameter("aulaName"));
+            
+            // Modificamos el aula en BBDD
+            ConexionEstatica.modificarAula(idAula, descripcion);
+            
+            response.sendRedirect("../vistas/roomAdmin.jsp");
+        }
+        
+        if (request.getParameter("deleteAula") != null) {
+            
+            int idAula = Integer.parseInt(request.getParameter("aulaName"));
+            
+            // Borramos el aula en BBDD
+            ConexionEstatica.borrarAula(idAula);
+            
+            response.sendRedirect("../vistas/roomAdmin.jsp");
+        }
+        
+        if (request.getParameter("addAula") != null) {
+            
+            String descripcion = String.valueOf(request.getParameter("aulaDesc"));
+            int idAula = Integer.parseInt(request.getParameter("aulaName"));
+            
+            // Insertamos el aula en BBDD
+            ConexionEstatica.insertarAula(idAula, descripcion);
+            
+            response.sendRedirect("../vistas/roomAdmin.jsp");
+        }
+        
+        if (request.getParameter("modifyFranja") != null) {
+            
+            String frStart = request.getParameter("frStart");
+            String frEnd = request.getParameter("frEnd");
+            int idFranja = Integer.parseInt(request.getParameter("idFranja"));
+            
+            // Modificamos la franja en BBDD
+            ConexionEstatica.modificarFranja(idFranja, frStart, frEnd);
+            
+            response.sendRedirect("../vistas/roomAdmin.jsp");
+        }
+        
         ConexionEstatica.cerrarBD();
     } else {
         response.sendRedirect("../index.jsp");

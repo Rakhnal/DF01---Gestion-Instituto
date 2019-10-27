@@ -75,6 +75,31 @@ public class ConexionEstatica {
     }
     
     /**
+     * Comprobamos si existe el aula en BBDD
+     * @param idAula
+     * @return 
+     */
+    public static boolean existeAula(int idAula) {
+        boolean existe = false;
+        try {
+            
+            String sentencia = "SELECT * FROM aulas WHERE idaula = ?";
+        
+            PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+            sentenciaPreparada.setInt(1, idAula);
+            
+            ConexionEstatica.Conj_Registros = sentenciaPreparada.executeQuery();
+            if (ConexionEstatica.Conj_Registros.next())//Si devuelve true es que existe.
+            {
+                existe = true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return existe; //Si devolvemos null el usuario no existe.
+    }
+    
+    /**
      * Carga todos los roles del usuario
      * @param dni
      * @return 
@@ -294,6 +319,74 @@ public class ConexionEstatica {
         sentenciaPreparada.setInt(2, idAula);
         sentenciaPreparada.setInt(3, idFranja);
         sentenciaPreparada.setString(4, fecha);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Modifica el aula
+     * @param idAula
+     * @param descripcion
+     * @throws SQLException 
+     */
+    public static void modificarAula(int idAula, String descripcion) throws SQLException {
+        
+        String sentencia = "UPDATE AULAS SET DESCRIPCION = ? WHERE IDAULA = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, descripcion);
+        sentenciaPreparada.setInt(2, idAula);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Borra el aula
+     * @param idAula
+     * @throws SQLException 
+     */
+    public static void borrarAula(int idAula) throws SQLException {
+        
+        String sentencia = "DELETE FROM AULAS WHERE IDAULA = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setInt(1, idAula);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Inserta el aula
+     * @param idAula
+     * @param descripcion
+     * @throws SQLException 
+     */
+    public static void insertarAula(int idAula, String descripcion) throws SQLException {
+        
+        String sentencia = "INSERT INTO AULAS VALUES (?, ?)";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setInt(1, idAula);
+        sentenciaPreparada.setString(2, descripcion);
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Modifica la franja
+     * @param idFranja
+     * @param frStart
+     * @param frEnd
+     * @throws SQLException 
+     */
+    public static void modificarFranja(int idFranja, String frStart, String frEnd) throws SQLException {
+        
+        String sentencia = "UPDATE FRANJAS SET FRSTART = ? AND FREND = ? WHERE IDFRANJA = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, frStart);
+        sentenciaPreparada.setString(2, frEnd);
+        sentenciaPreparada.setInt(3, idFranja);
         
         sentenciaPreparada.executeUpdate();
     }

@@ -48,8 +48,8 @@
                     %>
                     <li><a href="#">Administrador de Aulas</a>
                         <ul>
-                            <li><a href="roomReserve.jsp">Reserva de Aulas</a></li>
-                            <li><a href="roomAdmin.jsp">Administración de aulas</a></li>
+                            <li><a href="franjasAdmin.jsp">Administrar franjas</a></li>
+                            <li><a href="roomAdmin.jsp">Administrar aulas</a></li>
                         </ul>
                     </li>
 
@@ -60,7 +60,7 @@
                     %>
                     <li><a href="#">Administrador General</a>
                         <ul>
-                            <li><a href="userAdmin.jsp">Administración usuarios</a></li>
+                            <li><a href="userAdmin.jsp">Administrar usuarios</a></li>
                             <li><a href="bitacora.jsp">Bitácora</a></li>
                         </ul>
                     </li>
@@ -69,7 +69,7 @@
 
                         if (conectado.getIdRols().contains(Constantes.typeUsr)) {
                     %>
-                    <li><a href="roomReserve.jsp">Profesor</a></li>
+                    <li><a href="roomReserve.jsp">Reserva de aulas</a></li>
                     <%
                         }
                     %>
