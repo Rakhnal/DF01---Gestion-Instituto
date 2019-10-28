@@ -83,7 +83,9 @@
                 </ul>
             </nav>
             
-            <input type="button" value="" id="cese">
+            <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
+                <input type="submit" name="back" value="" id="cese">
+            </form>
             <input type="button" value="" id="about">
             <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
         </header>
@@ -126,10 +128,10 @@
                                 <form name = "rowFormAulas" action="../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
-                                            <input type="text" class="large" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
+                                            <input type="text" class="large transparent" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
+                                            <input type="text" class="large transparent" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
                                         </td>
                                         <td role="cell">
                                             <input type="text" class="large" name="nombre" id="nombre<%=user.getDni()%>" value="<%out.println(user.getNombre());%>">

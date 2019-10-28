@@ -82,7 +82,9 @@
                 </ul>
             </nav>
             
-            <input type="button" value="" id="cese">
+            <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
+                <input type="submit" name="back" value="" id="cese">
+            </form>
             <input type="button" value="" id="about">
             <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
         </header>
@@ -119,7 +121,7 @@
                                             <input type="text" readonly name="aulaName" id="aula<%=aulas.get(i).getIdAula()%>" value="<%out.println(aulas.get(i).getIdAula());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="aulaDesc" id="aulaDesc<%=aulas.get(i).getIdAula()%>" value="<%out.println(aulas.get(i).getDescripcion());%>">
+                                            <input type="text" class="large editable" name="aulaDesc" id="aulaDesc<%=aulas.get(i).getIdAula()%>" value="<%out.println(aulas.get(i).getDescripcion());%>">
                                         </td>
                                         <td role="cell" class="transparent">
                                             <input type="submit" value="" name="modifyAula" id="modifyAula"/>
@@ -136,10 +138,10 @@
                                 <form name = "rowFormAdd" action="../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
-                                            <input type="text" name="aulaName" id="aulaName" value="">
+                                            <input type="text" class="editable"name="aulaName" id="aulaName" value="">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="aulaDesc" id="aulaDesc" value="">
+                                            <input type="text" class="large editable" name="aulaDesc" id="aulaDesc" value="">
                                         </td>
                                         <td role="cell" class="transparent">
                                             <input type="submit" value="" name="addAula" id="addAula"/>

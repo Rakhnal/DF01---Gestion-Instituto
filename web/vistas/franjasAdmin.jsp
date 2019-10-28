@@ -83,7 +83,9 @@
                 </ul>
             </nav>
             
-            <input type="button" value="" id="cese">
+            <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
+                <input type="submit" name="back" value="" id="cese">
+            </form>
             <input type="button" value="" id="about">
             <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
         </header>
@@ -120,10 +122,10 @@
                                             <input type="text" readonly name="idFranja" id="idFranja<%=franjas.get(i).getIdFranja()%>" value="<%out.println(franjas.get(i).getIdFranja());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" maxlength="5" name="frStart" id="frStart<%=franjas.get(i).getFrStart()%>" value="<%out.println(franjas.get(i).getFrStart());%>">
+                                            <input type="text" class="large editable" maxlength="5" name="frStart" id="frStart<%=franjas.get(i).getFrStart()%>" value="<%out.println(franjas.get(i).getFrStart());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" maxlength="5" name="frEnd" id="frEnd<%=franjas.get(i).getFrEnd()%>" value="<%out.println(franjas.get(i).getFrEnd());%>">
+                                            <input type="text" class="large editable" maxlength="5" name="frEnd" id="frEnd<%=franjas.get(i).getFrEnd()%>" value="<%out.println(franjas.get(i).getFrEnd());%>">
                                         </td>
                                         <td role="cell" class="transparent">
                                             <input type="submit" value="" name="modifyFranja" id="modifyFranja"/>

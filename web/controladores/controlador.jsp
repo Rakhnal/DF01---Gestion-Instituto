@@ -4,8 +4,9 @@
     Author     : alvaro
 --%>
 
+<%@page import="java.sql.Date"%>
 <%@page import="Utilidades.Codificar"%>
-<%@page import="Utilidades.Bitacora"%>
+<%@page import="Clases.Bitacora"%>
 <%@page import="Utilidades.Constantes"%>
 <%@page import="Utilidades.ConexionEstatica"%>
 <%@page import="java.util.ArrayList"%>
@@ -40,7 +41,17 @@
                         // Sumamos 1 al contador de inicio de sesión del usuario
                         int cont = userObj.getNumLogins() + 1;
                         ConexionEstatica.Modificar_Dato(Constantes.usuarios, "numLogins", Integer.toString(cont), userObj.getCorreo());
+                        String fechaHora = (new java.util.Date()).toString();
 
+                        if (userObj.getIdRols().contains(Constantes.typeAdminge)) {
+                            ConexionEstatica.insertarLog(Constantes.login, fechaHora, userObj.getCorreo(), Constantes.strAdminGe);
+                        } else if (userObj.getIdRols().contains(Constantes.typeAdminau)) {
+                            ConexionEstatica.insertarLog(Constantes.login, fechaHora, userObj.getCorreo(), Constantes.strAdminAu);
+                        } else {
+                            ConexionEstatica.insertarLog(Constantes.login, fechaHora, userObj.getCorreo(), Constantes.strUsr);
+                        }
+                        
+                        
                         if (userObj.getIdRols().contains(Constantes.typeAdminge) || userObj.getIdRols().contains(Constantes.typeAdminau)) {
                             response.sendRedirect("../vistas/pagPpal.jsp");
                         } else {
@@ -71,11 +82,20 @@
                 <%
             }
         }
-
-        if (request.getParameter("backRegister") != null) {
+        
+        
+        if (request.getParameter("back") != null) {
             if (session.getAttribute("sesUsr") != null) {
                 Usuario user = (Usuario) session.getAttribute("sesUsr");
-                Bitacora.escribirBitacora("El usuario " + user.getCorreo() + " ha cerrado sesión");
+                String fechaHora = (new java.util.Date()).toString();
+
+                if (user.getIdRols().contains(Constantes.typeAdminge)) {
+                    ConexionEstatica.insertarLog(Constantes.logout, fechaHora, user.getCorreo(), Constantes.strAdminGe);
+                } else if (user.getIdRols().contains(Constantes.typeAdminau)) {
+                    ConexionEstatica.insertarLog(Constantes.logout, fechaHora, user.getCorreo(), Constantes.strAdminAu);
+                } else {
+                    ConexionEstatica.insertarLog(Constantes.logout, fechaHora, user.getCorreo(), Constantes.strUsr);
+                }
             }
                 
             session.setAttribute("sesUsr", null);
@@ -97,7 +117,8 @@
             Usuario userObj = ConexionEstatica.existeUsuario(correo);
             
             if (userObj == null) {
-                            
+                String fechaHora = (new java.util.Date()).toString();
+                ConexionEstatica.insertarLog(Constantes.logout, fechaHora, correo, Constantes.strAdminGe);
                 ConexionEstatica.Insertar_Profesor(Constantes.usuarios, correo, dni, edad, pass, nombre, apellido);
                 response.sendRedirect("../vistas/newUser.jsp");
                             
@@ -110,92 +131,6 @@
                 </script>
                 <%
             }
-        }
-
-        // --------- Ventana elegir modo acceso
-        if (request.getParameter("acceder") != null) {
-            
-            if (Integer.parseInt(request.getParameter("selType")) == Constantes.typeAdminau || Integer.parseInt(request.getParameter("selType")) == Constantes.typeAdminge) {
-                        
-                response.sendRedirect("vistas/crud.jsp");
-                        
-            } else {
-                        
-                response.sendRedirect("vistas/mosca.jsp");
-                        
-            }
-        }
-
-        // ---------- Ventana CRUD
-        if (request.getParameter("boton") != null) {
-            
-            // ---------- Registrar nuevo usuario
-            if (request.getParameter("boton").equals("Registrar")) {
-
-                session.setAttribute("sesFromCrud", true);
-                response.sendRedirect("vistas/newUser.jsp");
-
-            }
-
-            // ---------- Elimina al usuario de la BBDD
-            if (request.getParameter("boton").equals("X")) {
-
-                Usuario admin = (Usuario) session.getAttribute("sesUsr");
-
-                ArrayList<Usuario> usuarios;
-
-                String userName = request.getParameter("user");
-                int edad = Integer.parseInt(request.getParameter("edad"));
-
-                // usuarios = ConexionEstatica.obtenerUsuariosAdmin(admin.getCorreo());
-
-                ConexionEstatica.Borrar_Dato(Constantes.usuarios, userName);
-                response.sendRedirect("vistas/crud.jsp");
-            }
-
-            // ---------- Modifica los datos del usuario
-            if (request.getParameter("boton").equals("V")) {
-
-                Usuario admin = (Usuario) session.getAttribute("sesUsr");
-
-                ArrayList<Usuario> usuarios;
-                String userName = request.getParameter("user");
-                int edad = Integer.parseInt(request.getParameter("edad"));
-
-                Usuario modifyUser = ConexionEstatica.existeUsuario(userName);
-                
-                if (modifyUser != null) {
-                    ConexionEstatica.Modificar_Dato(Constantes.usuarios, "edad", Integer.toString(edad), userName);
-                    
-                    // Si es Super Admin modificará también, si lo ha indicado el administrador al cargo de ese usuario
-                    if (admin.getIdRols().contains(Constantes.typeAdminge) && request.getParameter("userRelated") != null) {
-                        
-                        String adminRelated = request.getParameter("userRelated");
-                        ConexionEstatica.Modificar_Dato(Constantes.usuarios, "admin", adminRelated, modifyUser.getCorreo());
-                        
-                    }
-                    
-                    response.sendRedirect("vistas/crud.jsp");
-                }
-            }
-        }
-
-        if (request.getParameter("raise") != null) {
-            
-            String usr = request.getParameter("user");
-
-            //ConexionEstatica.Modificar_Dato(Constantes.usuarios, "type", Constantes.typeAdmin, usr);
-            response.sendRedirect("vistas/crud.jsp");
-
-        }
-
-        if (request.getParameter("drop") != null) {
-            
-            String usr = request.getParameter("user");
-
-            //ConexionEstatica.Modificar_Dato(Constantes.usuarios, "type", Constantes.typeUsr, usr);
-            response.sendRedirect("vistas/crud.jsp");
-
         }
 
         ConexionEstatica.cerrarBD();

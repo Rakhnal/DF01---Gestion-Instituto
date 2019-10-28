@@ -1,6 +1,7 @@
 package Utilidades;
 
 import Clases.Aula;
+import Clases.Bitacora;
 import Clases.Franja;
 import Clases.Reserva;
 import Clases.Reservado;
@@ -200,8 +201,26 @@ public class ConexionEstatica {
                 usuarios.add(usu);
             }
         } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
         }
         return usuarios;
+    }
+    
+    // Obtener todos los registros de la tabla bitácora
+    public static ArrayList<Bitacora> obtenerLogs() {
+        ArrayList<Bitacora> logs = new ArrayList<>();
+        Bitacora log = null;
+        try {
+            String sentencia = "SELECT * FROM BITACORA ORDER BY FECHA_HORA";
+            ConexionEstatica.Conj_Registros = ConexionEstatica.Sentencia_SQL.executeQuery(sentencia);
+            while(Conj_Registros.next()){
+                log = new Bitacora(Conj_Registros.getString("accion"), Conj_Registros.getString("fecha_hora"), Conj_Registros.getString("correo"), Conj_Registros.getString("rol"));
+                logs.add(log);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error en el acceso a la BD.");
+        }
+        return logs;
     }
     
     //----------------------------------------------------------
@@ -454,12 +473,26 @@ public class ConexionEstatica {
         
         sentenciaPreparada.executeUpdate();
     }
-    
 
-    //----------------------------------------------------------
-    public static void Borrar_Dato(String tabla, String user) throws SQLException {
-        String Sentencia = "DELETE FROM " + tabla + " WHERE user = '" + user + "'";
-        ConexionEstatica.Sentencia_SQL.execute(Sentencia);
+    /**
+     * Inserta en la tabla de logs un nuevo registro
+     * @param accion
+     * @param fechaHora
+     * @param correo
+     * @param rol
+     * @throws SQLException 
+     */
+    public static void insertarLog(String accion, String fechaHora, String correo, String rol) throws SQLException {
+        
+        String sentencia = "INSERT INTO BITACORA VALUES (?, ?, ?, ?)";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, accion);
+        sentenciaPreparada.setString(2, fechaHora);
+        sentenciaPreparada.setString(3, correo);
+        sentenciaPreparada.setString(4, rol);
+        
+        sentenciaPreparada.executeUpdate();
     }
-
+    
 }

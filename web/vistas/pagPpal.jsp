@@ -75,9 +75,13 @@
                     %>
                 </ul>
             </nav>
-            
-            <input type="button" value="" id="cese">
+                
+            <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
+                <input type="submit" name="back" value="" id="cese">
+            </form>
+                
             <input type="button" value="" id="about">
+            
             <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
         </header>
 

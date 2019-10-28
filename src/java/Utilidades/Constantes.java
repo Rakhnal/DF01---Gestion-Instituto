@@ -11,6 +11,27 @@ package Utilidades;
  */
 public class Constantes {
     
+    // Bitacora
+    public static String registered = "Registrado";
+    public static String login = "Iniciar Sesion";
+    public static String logout = "Cerrar Sesion";
+    public static String dropProfesorLog = "Quitar Rol Profesor";
+    public static String riseProfesorLog = "Poner Rol Profesor";
+    public static String dropAdminAuLog = "Quitar Rol Admin Aulas";
+    public static String riseAdminAuLog = "Poner Rol Admin Aulas";
+    public static String dropAdminGeLog = "Quitar Rol Admin Gen.";
+    public static String riseAdminGeLog = "Poner Rol Admin Gen.";
+    public static String strActivateLog = "Activar Usuario";
+    public static String strDeactivateLog = "Desactivar Usuario";
+    public static String reservarAula = "Aula reservada";
+    public static String cancelarReserva = "Reserva cancelada";
+    public static String modificarUser = "Modificar Usuario";
+    public static String borrarUser = "Borrar Usuario";
+    public static String aniadirAula = "Insertar Aula";
+    public static String borrarAula = "Borrar Aula";
+    public static String modificarAula = "Modificar Aula";
+    public static String modificarFranja = "Modificar Franja";
+    
     // Administración de usuarios
     public static String dropProfesor = "Quitar Profesor";
     public static String riseProfesor = "Poner Profesor";
@@ -26,7 +47,10 @@ public class Constantes {
     public static int active = 1;
     public static int inactive = 0;
     
-    // Tipos
+    // Tipos Roles
+    public static String strUsr = "Profesor";
+    public static String strAdminAu = "Administrador de Aulas";
+    public static String strAdminGe = "Administrador General";
     public static int typeAdminge = 2;
     public static int typeAdminau = 1;
     public static int typeUsr = 0;

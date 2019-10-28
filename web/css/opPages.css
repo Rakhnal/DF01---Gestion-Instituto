@@ -217,7 +217,7 @@ select {
     margin-left: 20%;
 }
 
-#userAdmin {
+#userAdmin, #bitacoraTable {
     padding: 5%;
     display: flex;
     background-color: white;
@@ -225,6 +225,10 @@ select {
     min-height: 400px;
     margin-right: 1%;
     margin-left: 1%;
+}
+
+#bitacoraTable input {
+    text-align: center;
 }
 
 #reservar {
@@ -311,7 +315,10 @@ select {
 
 .large {
     width: 160px !important;
+}
 
+.editable {
+    border: 1px solid #dcf2f1;
 }
 
 .bluestyle {
@@ -322,6 +329,7 @@ select {
 }
 
 nav {
+    margin-top: -0.15% !important;
     position: absolute;
     margin: auto;
 }
@@ -342,7 +350,7 @@ nav li {
     width: 150px;
     height: 15px;
     padding: 15px 5px;
-    border: 4px solid #dcf2f1;
+    border: 5px solid #dcf2f1;
     border-radius: 5px;;
     text-align: center;
     background-color: #edfffe;
