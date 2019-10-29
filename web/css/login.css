@@ -11,14 +11,14 @@ and open the template in the editor.
 body {
     background-image: url("../img/instPpal.jpg");
     background-repeat: no-repeat;
-    
+
     font-family: sans-serif;
 }
 
 a {
     margin: 15px;
     justify-self: center;
-    
+
     color: black;
 }
 
@@ -27,7 +27,7 @@ input {
     border: none;
     border-bottom: 1px solid black;
     justify-self: center;
-    transition: 2s;
+    transition: 0.5s;
 }
 
 div {
@@ -55,7 +55,7 @@ input[type = 'submit'] {
     border-radius: 9px;
     width: 100px;
     height: 50px;
-    
+
     justify-self: center;
 }
 
@@ -75,12 +75,12 @@ label {
 }
 
 form {
-    
+
     padding-top: 20%;
-    
+
     border-radius: 9px;
     width: 100%;
-    
+
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: repeat(7, 14.2857);
@@ -92,9 +92,9 @@ h1 {
     padding: 0px;
     text-align: center;
     font-size: 1.5em;
-    
+
     justify-self: center;
-    
+
     font-size: 2.5em;
 }
 
@@ -110,7 +110,7 @@ select {
 
 #ppal {
     border: 10px solid #edfffe !important;
-    
+
     margin-left: 60%;
     margin-top:8%;
     width: 25%;
@@ -119,4 +119,65 @@ select {
     -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
+}
+
+@media
+only screen 
+and (max-width: 1250px), (min-device-width: 0px) 
+and (max-device-width: 1250px)  {
+
+    body {
+        background-size: cover;
+    }
+    
+    h1 {
+        margin: 5px;
+    }
+
+    form {
+        padding-top: 0;
+        margin-top: 25%;
+    }
+
+    #ppal {
+        margin: 40% 30% 40%;
+        width: 40%;
+        min-height: 500px;
+    }
+}
+
+@media
+only screen 
+and (max-width: 740px), (min-device-width: 0px) 
+and (max-device-width: 740px)  {
+    
+    body {
+        background-image: none;
+        background-color: #f5fffe;
+        font-size: 2em;
+    }
+    
+    #ppal {
+        min-height: 300px;
+        width: 95%;
+        bottom: 25%;
+        top: 20%;
+        right: 1%;
+        left: 1%;
+        margin: 0;
+        position: absolute;
+    }
+    
+    input {
+        height: 60px;
+        font-size: 1.5em;
+    }
+    
+    input[type = 'submit'] {
+        height: 100px;
+        width: 100px;
+    }
+    footer {
+        visibility: hidden;
+    }
 }

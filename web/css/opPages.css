@@ -484,6 +484,11 @@ and (max-device-width: 1250px)  {
     #userAdmin td:nth-of-type(7):before { content: "Estado"; }
     #userAdmin td:nth-of-type(8):before { content: ""; }
     #userAdmin td:nth-of-type(9):before { content: ""; }
+    
+    #bitacoraTable td:nth-of-type(1):before { content: "Acción"; }
+    #bitacoraTable td:nth-of-type(2):before { content: "Fecha y hora"; }
+    #bitacoraTable td:nth-of-type(3):before { content: "Correo"; }
+    #bitacoraTable td:nth-of-type(4):before { content: "Rol"; }
 }
 
 @media
