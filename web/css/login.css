@@ -27,7 +27,6 @@ input {
     border: none;
     border-bottom: 1px solid black;
     justify-self: center;
-    transition: 0.5s;
 }
 
 div {
@@ -123,11 +122,12 @@ select {
 
 @media
 only screen 
-and (max-width: 1250px), (min-device-width: 0px) 
+and (max-width: 1250px), (min-width: 0px) 
 and (max-device-width: 1250px)  {
 
     body {
-        background-size: cover;
+        background-image: none;
+        background-color: #f5fffe;
     }
     
     h1 {
@@ -140,7 +140,7 @@ and (max-device-width: 1250px)  {
     }
 
     #ppal {
-        margin: 40% 30% 40%;
+        margin: 12% 30% 40%;
         width: 40%;
         min-height: 500px;
     }
@@ -148,12 +148,10 @@ and (max-device-width: 1250px)  {
 
 @media
 only screen 
-and (max-width: 740px), (min-device-width: 0px) 
-and (max-device-width: 740px)  {
+and (max-width: 740px), (min-width: 0px) 
+and (max-device-width: 740px) and (orientation: portrait)  {
     
     body {
-        background-image: none;
-        background-color: #f5fffe;
         font-size: 2em;
     }
     
@@ -177,6 +175,20 @@ and (max-device-width: 740px)  {
         height: 100px;
         width: 100px;
     }
+    footer {
+        visibility: hidden;
+    }
+}
+
+@media
+only screen 
+and (max-width: 740px), (min-width: 0px) 
+and (max-device-width: 740px) and (orientation: landscape)  {
+    
+    #ppal {
+        margin: 0% 30%;
+    }
+    
     footer {
         visibility: hidden;
     }

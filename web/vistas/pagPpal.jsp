@@ -28,7 +28,7 @@
                 $("#about").click(function () {
                     window.location = "about.jsp";
                 });
-
+                
             });
 
         </script>
@@ -40,10 +40,10 @@
         %>
 
         <header>
-            
+
             <nav>
                 <ul>
-                    <%                    
+                    <%
                         if (conectado.getIdRols().contains(Constantes.typeAdminau)) {
                     %>
                     <li><a href="#">Administrador de Aulas</a>
@@ -70,19 +70,34 @@
                         if (conectado.getIdRols().contains(Constantes.typeUsr)) {
                     %>
                     <li><a href="roomReserve.jsp">Reserva de aulas</a></li>
-                    <%
-                        }
-                    %>
+                        <%
+                            }
+                        %>
                 </ul>
             </nav>
-                
+
             <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
                 <input type="submit" name="back" value="" id="cese">
             </form>
-                
+
             <input type="button" value="" id="about">
+
+            <%
+                if (conectado.getFoto() == null) {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="../img/default.png" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+            } else {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="<%= conectado.getFotoimgString()%>" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+                }
+            %>
             
-            <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
         </header>
 
         <div id = 'content'>

@@ -6,7 +6,9 @@
 package Clases;
 
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.Session;
@@ -132,6 +134,18 @@ public class Usuario {
 
     public void setFotoBytes(byte[] fotoBytes) {
         this.fotoBytes = fotoBytes;
+    }
+    
+    public String getFotoimgString() {
+        String image = null;
+        try {
+            byte[] imageBytes = this.foto.getBytes(1, (int) this.foto.length());
+            String encodedImage = Base64.getEncoder().encodeToString(imageBytes);
+            image = "data:image/jpg;base64," + encodedImage;
+            
+        } catch (SQLException ex) {
+        }
+        return image;
     }
 
     // Enviamos un correo al usuario para informar del reestablecimiento de la contraseña

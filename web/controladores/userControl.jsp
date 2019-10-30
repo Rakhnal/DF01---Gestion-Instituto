@@ -4,6 +4,7 @@
     Author     : alvaro
 --%>
 
+<%@page import="Utilidades.Auxiliar"%>
 <%@page import="Clases.Reserva"%>
 <%@page import="java.sql.Date"%>
 <%@page import="Utilidades.Codificar"%>
@@ -244,6 +245,38 @@
             ConexionEstatica.borrarUsuario(dni, correo);
             
             response.sendRedirect("../vistas/userAdmin.jsp");
+        }
+        
+        if (request.getParameter("changePass") != null) {
+            
+            String passAct = Codificar.codifica(request.getParameter("passAct"));
+            String passAnt = Codificar.codifica(request.getParameter("passAnt"));
+            
+            if (user.getPass().equals(passAnt)) {
+                
+                // Comprobamos que las dos no sean iguales
+                if (!passAct.equals(passAnt)) {
+                    // Cambiamos la contraseña
+                    ConexionEstatica.cambiarPass(user, passAct);
+                    
+                    response.sendRedirect("../vistas/profile.jsp");
+                } else {
+                    %>
+                    <script>
+                        alert("Las contraseñas son iguales, tienen que ser distintas");
+                        location = '../vistas/profile.jsp';
+                    </script>
+                    <%
+                }
+                
+            } else {
+                %>
+                <script>
+                    alert("Contraseña anterior incorrecta, intentalo de nuevo");
+                    location = '../vistas/profile.jsp';
+                </script>
+                <%
+            }
         }
         
         ConexionEstatica.cerrarBD();

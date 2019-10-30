@@ -98,6 +98,7 @@ h1 {
 }
 
 nav {
+    margin-top: -0.15% !important;
     position: absolute;
     margin: auto;
 }
@@ -118,7 +119,7 @@ nav li {
     width: 150px;
     height: 15px;
     padding: 15px 5px;
-    border: 4px solid #dcf2f1;
+    border: 5px solid #dcf2f1;
     border-radius: 5px;;
     text-align: center;
     background-color: #edfffe;

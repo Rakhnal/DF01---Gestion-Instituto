@@ -92,7 +92,21 @@
                 <input type="submit" name="back" value="" id="cese">
             </form>
             <input type="button" value="" id="about">
-            <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
+            <%
+                if (conectado.getFoto() == null) {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="../img/default.png" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+            } else {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="<%= conectado.getFotoimgString()%>" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+                }
+            %>
         </header>
         
         <div id = "ppal">

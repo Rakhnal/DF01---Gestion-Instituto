@@ -27,10 +27,12 @@ public class Constantes {
     public static String cancelarReserva = "Reserva cancelada";
     public static String modificarUser = "Modificar Usuario";
     public static String borrarUser = "Borrar Usuario";
-    public static String aniadirAula = "Insertar Aula";
+    public static String aniadirAula = "Añadir Aula";
     public static String borrarAula = "Borrar Aula";
     public static String modificarAula = "Modificar Aula";
     public static String modificarFranja = "Modificar Franja";
+    public static String cambiarImagen = "Cambiar imagen de perfil";
+    public static String cambiarPass = "Contraseña cambiada";
     
     // Administración de usuarios
     public static String dropProfesor = "Quitar Profesor";

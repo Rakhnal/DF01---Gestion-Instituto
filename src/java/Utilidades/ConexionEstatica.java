@@ -495,4 +495,37 @@ public class ConexionEstatica {
         sentenciaPreparada.executeUpdate();
     }
     
+    /**
+     * Cambia la foto del perfil del usuario
+     * @param user
+     * @throws SQLException 
+     */
+    public static void cambiarImagen(Usuario user) throws SQLException {
+        
+        String sentencia = "UPDATE USUARIOS SET FOTO = ? WHERE DNI = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setBytes(1, user.getFotoBytes());
+        sentenciaPreparada.setString(2, user.getDni());
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
+    /**
+     * Cambia la contraseña del usuario
+     * @param user
+     * @param newPass
+     * @throws SQLException 
+     */
+    public static void cambiarPass(Usuario user, String newPass) throws SQLException {
+        
+        String sentencia = "UPDATE USUARIOS SET PASSWORD = ? WHERE DNI = ?";
+        
+        PreparedStatement sentenciaPreparada = ConexionEstatica.Conex.prepareStatement(sentencia);
+        sentenciaPreparada.setString(1, newPass);
+        sentenciaPreparada.setString(2, user.getDni());
+        
+        sentenciaPreparada.executeUpdate();
+    }
+    
 }

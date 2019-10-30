@@ -22,6 +22,7 @@
         <link rel="stylesheet" type="text/css" href="../css/opPages.css">
         <script src="../scripts/jquery-3.4.1.min.js"></script>
         <script src="../scripts/headerscroll.js"></script>
+        <script src="../scripts/pagination.js"></script>
         
         <script>
 
@@ -88,7 +89,21 @@
                 <input type="submit" name="back" value="" id="cese">
             </form>
             <input type="button" value="" id="about">
-            <img id ="userIcon" src = "../img/default.png" alt = "Imagen perfil del usuario"/>
+            <%
+                if (conectado.getFoto() == null) {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="../img/default.png" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+            } else {
+            %>
+            <a href="profile.jsp">
+                <img id ="userIcon" src="<%= conectado.getFotoimgString()%>" id = "profPic" alt = "Foto de perfil">
+            </a>
+            <%
+                }
+            %>
         </header>
         
         <div id = "ppalRoom">
@@ -104,7 +119,7 @@
                             if (null != logs && logs.size() > 0) {
                                 
                         %>
-                            <table role="table">
+                            <table role="table" id="tablePag">
                                 <thead role="rowgroup">
                                   <tr role="row">
                                     <th role="columnheader">ACCIÓN</th>
