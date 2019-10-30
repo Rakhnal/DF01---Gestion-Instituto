@@ -12,13 +12,13 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" type="image/jpg" href="../img/ifplogo.png" />
-        <link rel="stylesheet" type="text/css" href="../css/registro.css">
+        <link rel="shortcut icon" type="image/jpg" href="../../img/ifplogo.png" />
+        <link rel="stylesheet" type="text/css" href="../../css/registro.css">
 
         <title>Nuevo Profesor</title>
 
-        <script src="../scripts/jquery-3.4.1.min.js"></script>
-        <script src="../scripts/Registro/registro.js"></script>
+        <script src="../../scripts/jquery-3.4.1.min.js"></script>
+        <script src="../../scripts/Registro/registro.js"></script>
     </head>
     <body>
 
@@ -28,7 +28,7 @@
 
         <div id="ppal">
 
-            <form name="newForm" onsubmit="return validateForm()" action="../controladores/controlador.jsp" method="POST">
+            <form name="newForm" onsubmit="return validateForm()" action="../../controladores/controlador.jsp" method="POST">
 
                 <div>
                     <label>
@@ -36,7 +36,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' name='nombre' placeholder='Nombre' id = 'nombre'/>
-                        <img id = 'imgNombre' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgNombre' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
 
@@ -46,7 +46,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' name='apellido' placeholder='Primer Apellido' id='apellido'/>
-                        <img id = 'imgApellido' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgApellido' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -55,7 +55,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='email' placeholder='usuario@xxxxxxx.xxx' name='correo' id='correo'/>
-                        <img id = 'imgCorreo' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgCorreo' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -64,7 +64,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='password' placeholder='Contraseña' name='pass' id='pass'/>
-                        <img id = 'imgPass' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgPass' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -73,7 +73,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='password' placeholder='Contraseña' name='passVal' id = 'passVal'/>
-                        <img id = 'imgPassVal' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgPassVal' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -82,7 +82,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' placeholder='DNI' maxlength="9" name='dni' id='dni'/>
-                        <img id = 'imgDni' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgDni' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 <div>
@@ -91,7 +91,7 @@
                     </label>
                     <label class = 'left'>
                         <input type='number' min = "18" max = "99" maxlength="3" name='edad' id='edad'/>
-                        <img id = 'imgEdad' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgEdad' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 
@@ -101,12 +101,12 @@
                     </label>
                     <label class = 'left'>
                         <input type='text' placeholder='Introduce el Captcha' name='captchaRes' id='captchaRes'/>
-                        <img id = 'imgCaptcha' src="../img/warning.png" alt="error"/>
+                        <img id = 'imgCaptcha' src="../../img/warning.png" alt="error"/>
                     </label>
                 </div>
                 
                 <input type='submit' value = '' name = 'register' id="register"/>
-                <input type='button' value = '' onclick='window.location = "../index.jsp"' name = 'backRegister' id="back"/>
+                <input type='button' value = '' onclick='window.location = "../../index.jsp"' name = 'backRegister' id="back"/>
             </form>
         </div>
     </body>

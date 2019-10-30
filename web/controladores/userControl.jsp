@@ -18,7 +18,7 @@
 <%
     
     // Si la sesión sigue activa
-    if (session != null) {
+    if (session != null && session.getAttribute("sesUsr") != null) {
         
         ConexionEstatica.abrirBD();
         
@@ -38,7 +38,7 @@
             // Ponemos las reservas en la sesión para usarlo en la página
             session.setAttribute("reservas", reservas);
             
-            response.sendRedirect("../vistas/roomReserve.jsp");
+            response.sendRedirect("../vistas/Profesor/roomReserve.jsp");
         }
         
         if (request.getParameter("buttonReserve") != null) {
@@ -49,7 +49,7 @@
             
             String fechaHora = (new java.util.Date()).toString();
             ConexionEstatica.insertarLog(Constantes.reservarAula, fechaHora, user.getCorreo(), Constantes.strAdminAu);
-            ConexionEstatica.Insertar_Reserva(Constantes.reservarAula, user.getDni(), idAula, idFranja, fecha);
+            ConexionEstatica.Insertar_Reserva(Constantes.reservas, user.getDni(), idAula, idFranja, fecha);
             
             // Recuperamos las reservas de esa aula en esa fecha
             ArrayList<Reserva> reservas = ConexionEstatica.obtenerReservas(fecha, idAula);
@@ -57,7 +57,7 @@
             // Ponemos las reservas en la sesión para usarlo en la página
             session.setAttribute("reservas", reservas);
             
-            response.sendRedirect("../vistas/roomReserve.jsp");
+            response.sendRedirect("../vistas/Profesor/roomReserve.jsp");
             
         }
         
@@ -91,7 +91,7 @@
                 // Ponemos las reservas en la sesión para usarlo en la página
                 session.setAttribute("reservas", reservas);
 
-                response.sendRedirect("../vistas/roomReserve.jsp");
+                response.sendRedirect("../vistas/Profesor/roomReserve.jsp");
             }
         }
         
@@ -105,7 +105,7 @@
             ConexionEstatica.insertarLog(Constantes.modificarAula, fechaHora, user.getCorreo(), Constantes.strAdminAu);
             ConexionEstatica.modificarAula(idAula, descripcion);
             
-            response.sendRedirect("../vistas/roomAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador de Aula/roomAdmin.jsp");
         }
         
         if (request.getParameter("deleteAula") != null) {
@@ -117,7 +117,7 @@
             ConexionEstatica.insertarLog(Constantes.borrarAula, fechaHora, user.getCorreo(), Constantes.strAdminAu);
             ConexionEstatica.borrarAula(idAula);
             
-            response.sendRedirect("../vistas/roomAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador de Aula/roomAdmin.jsp");
         }
         
         if (request.getParameter("addAula") != null) {
@@ -130,7 +130,7 @@
             ConexionEstatica.insertarLog(Constantes.aniadirAula, fechaHora, user.getCorreo(), Constantes.strAdminAu);
             ConexionEstatica.insertarAula(idAula, descripcion);
             
-            response.sendRedirect("../vistas/roomAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador de Aula/roomAdmin.jsp");
         }
         
         if (request.getParameter("modifyFranja") != null) {
@@ -144,7 +144,7 @@
             ConexionEstatica.insertarLog(Constantes.modificarFranja, fechaHora, user.getCorreo(), Constantes.strAdminAu);
             ConexionEstatica.modificarFranja(idFranja, frStart, frEnd);
             
-            response.sendRedirect("../vistas/franjasAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador de Aula/franjasAdmin.jsp");
         }
         
         if (request.getParameter("profesor") != null) {
@@ -162,7 +162,7 @@
                 ConexionEstatica.insertarRol(dni, Constantes.typeUsr);
             }
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("adminAulas") != null) {
@@ -180,7 +180,7 @@
                 ConexionEstatica.insertarRol(dni, Constantes.typeAdminau);
             }
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("adminGen") != null) {
@@ -198,7 +198,7 @@
                 ConexionEstatica.insertarRol(dni, Constantes.typeAdminge);
             }
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("confUser") != null) {
@@ -216,7 +216,7 @@
                 ConexionEstatica.cambiarEstado(dni, Constantes.active);
             }
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("modifyUser") != null) {
@@ -231,7 +231,7 @@
             ConexionEstatica.insertarLog(Constantes.modificarUser, fechaHora, user.getCorreo(), Constantes.strAdminGe);
             ConexionEstatica.modificarUsuario(dni, nombre, apellido, edad);
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("deleteUser") != null) {
@@ -244,7 +244,7 @@
             ConexionEstatica.insertarLog(Constantes.borrarUser, fechaHora, user.getCorreo(), Constantes.strAdminGe);
             ConexionEstatica.borrarUsuario(dni, correo);
             
-            response.sendRedirect("../vistas/userAdmin.jsp");
+            response.sendRedirect("../vistas/Administrador General/userAdmin.jsp");
         }
         
         if (request.getParameter("changePass") != null) {
@@ -259,12 +259,15 @@
                     // Cambiamos la contraseña
                     ConexionEstatica.cambiarPass(user, passAct);
                     
-                    response.sendRedirect("../vistas/profile.jsp");
+                    user = ConexionEstatica.existeUsuario(user.getCorreo());
+                    
+                    session.setAttribute("sesUsr", user);
+                    response.sendRedirect("../vistas/Interfaz de Usuario/profile.jsp");
                 } else {
                     %>
                     <script>
                         alert("Las contraseñas son iguales, tienen que ser distintas");
-                        location = '../vistas/profile.jsp';
+                        location = '../vistas/Interfaz de Usuario/profile.jsp';
                     </script>
                     <%
                 }
@@ -273,7 +276,7 @@
                 %>
                 <script>
                     alert("Contraseña anterior incorrecta, intentalo de nuevo");
-                    location = '../vistas/profile.jsp';
+                    location = '../vistas/Interfaz de Usuario/profile.jsp';
                 </script>
                 <%
             }
@@ -281,6 +284,11 @@
         
         ConexionEstatica.cerrarBD();
     } else {
-        response.sendRedirect("../index.jsp");
+        %>
+        <script>
+            alert("Sesión expirada, vuelva a conectarse");
+            location = '../index.jsp';
+        </script>
+        <%
     }
 %>

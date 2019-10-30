@@ -20,34 +20,20 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" type="image/jpg" href="../img/ifplogo.png" />
+        <link rel="shortcut icon" type="image/jpg" href="../../img/ifplogo.png" />
         <title>Reservar Aulas</title>
         
-        <link rel="stylesheet" type="text/css" href="../css/opPages.css">
-        <script src="../scripts/jquery-3.4.1.min.js"></script>
-        <script src="../scripts/headerscroll.js"></script>
-        
-        <script>
-
-            $(document).ready(function () {
-
-                $("#cese").click(function () {
-                    window.location = "../index.jsp";
-                });
-
-                $("#about").click(function () {
-                    window.location = "about.jsp";
-                });
-
-            });
-
-        </script>
+        <link rel="stylesheet" type="text/css" href="../../css/opPages.css">
+        <script src="../../scripts/jquery-3.4.1.min.js"></script>
+        <script src="../../scripts/headerscroll.js"></script>
+        <script src="../../scripts/header.js"></script>
         
     </head>
     <body>
         
         <%
-            if (session != null) {
+            // Si la sesión sigue activa
+            if (session != null && session.getAttribute("sesUsr") != null) {
                 Usuario conectado = (Usuario) session.getAttribute("sesUsr");
         %>
         
@@ -55,13 +41,14 @@
             
             <nav>
                 <ul>
-                    <%                    
+                    <%
+                        // Formamos el menú según los roles que tenga el usuario
                         if (conectado.getIdRols().contains(Constantes.typeAdminau)) {
                     %>
                     <li><a href="#">Administrador de Aulas</a>
                         <ul>
-                            <li><a href="franjasAdmin.jsp">Administrar franjas</a></li>
-                            <li><a href="roomAdmin.jsp">Administrar aulas</a></li>
+                            <li><a href="../Administrador de Aula/franjasAdmin.jsp">Administrar franjas</a></li>
+                            <li><a href="../Administrador de Aula/roomAdmin.jsp">Administrar aulas</a></li>
                         </ul>
                     </li>
 
@@ -72,8 +59,8 @@
                     %>
                     <li><a href="#">Administrador General</a>
                         <ul>
-                            <li><a href="userAdmin.jsp">Administrar usuarios</a></li>
-                            <li><a href="bitacora.jsp">Bitácora</a></li>
+                            <li><a href="../Administrador General/userAdmin.jsp">Administrar usuarios</a></li>
+                            <li><a href="../Administrador General/bitacora.jsp">Bitácora</a></li>
                         </ul>
                     </li>
                     <%
@@ -81,27 +68,28 @@
 
                         if (conectado.getIdRols().contains(Constantes.typeUsr)) {
                     %>
-                    <li><a href="roomReserve.jsp">Reserva de aulas</a></li>
-                    <%
-                        }
-                    %>
+                    <li><a href="#">Reserva de aulas</a></li>
+                        <%
+                            }
+                        %>
                 </ul>
             </nav>
             
-            <form name = "buttonForm" action="../controladores/controlador.jsp" method="POST">
+            <form name = "buttonForm" action="../../controladores/controlador.jsp" method="POST">
                 <input type="submit" name="back" value="" id="cese">
             </form>
             <input type="button" value="" id="about">
             <%
+                // Si el usuario no tiene foto le ponemos una por defecto, si tiene cargamos la suya
                 if (conectado.getFoto() == null) {
             %>
-            <a href="profile.jsp">
-                <img id ="userIcon" src="../img/default.png" id = "profPic" alt = "Foto de perfil">
+            <a href="../Interfaz de Usuario/profile.jsp">
+                <img id ="userIcon" src="../../img/default.png" id = "profPic" alt = "Foto de perfil">
             </a>
             <%
             } else {
             %>
-            <a href="profile.jsp">
+            <a href="../Interfaz de Usuario/profile.jsp">
                 <img id ="userIcon" src="<%= conectado.getFotoimgString()%>" id = "profPic" alt = "Foto de perfil">
             </a>
             <%
@@ -111,9 +99,10 @@
         
         <div id = "ppal">
             <div id = "reservar">
-                <form name = "indexForm" action="../controladores/userControl.jsp" method="POST">
+                <form name = "indexForm" action="../../controladores/userControl.jsp" method="POST">
                     
                     <%
+                    // Si ya se ha buscado una fecha al volver a la página cargamos esa fecha
                     if (session.getAttribute("fecha") != null) {
                         String fecha = (String) session.getAttribute("fecha");
                     %>
@@ -124,6 +113,7 @@
                     </div>
                     <%
                     } else {
+                        // Si no, ponemos en el campo fecha la fecha de hoy
                         Calendar now = Calendar.getInstance();
                         int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
                         int month = now.get(Calendar.MONTH) + 1;
@@ -145,9 +135,11 @@
                             <%
 
                             ConexionEstatica.abrirBD();
-
+                            
+                            // Obtengo todas las aulas de la BBDD
                             ArrayList<Aula> aulas = ConexionEstatica.obtenerAulas();
-
+                            
+                            // Cargamos las aulas en el select
                             for (int i = 0; i < aulas.size(); i++) {
                                 Aula aula = aulas.get(i);
                                 %>
@@ -165,6 +157,7 @@
                         
                         <%
                         
+                        // Si ya le hemos dado al botón buscar, cargamos la tabla con las franjas y el estado de justo esa franja en esa fecha y el aula buscada
                         if (session.getAttribute("reservas") != null) {
                             
                             ArrayList<Reserva> reservas = (ArrayList<Reserva>) session.getAttribute("reservas");
@@ -187,7 +180,7 @@
                             for (int i = 0; i < franjas.size(); i++) {
 
                             %>
-                                <form name = "rowForm" action="../controladores/userControl.jsp" method="POST">
+                                <form name = "rowForm" action="../../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
                                             <input type="text" readonly name="idfranja" id="idfranja" value="<%out.println(franjas.get(i).getIdFranja());%>">
@@ -199,6 +192,8 @@
                                             <input type="text" readonly name="frend" id="frend" value="<%out.println(franjas.get(i).getFrEnd());%>">
                                         </td>
                                         <%
+                                        // Si la franja de esa aula en esa fecha está reservada cambiamos el valor del botón inhabilitandolo
+                                        // Si está libre se podrá pulsar
                                         if (Auxiliar.isReserved(reservas, franjas.get(i).getIdFranja())) {
                                         %>
                                         <td role="cell">
@@ -236,6 +231,7 @@
                 <div id="aulasUser">
                         
                         <%
+                            // Cargamos las reservas del usuario, se podrán cancelar
                             ArrayList<Reservado> reservas = ConexionEstatica.obtenerReservas(conectado.getDni());
                             
                             if (null != reservas && reservas.size() > 0) {
@@ -257,7 +253,7 @@
                             for (int i = 0; i < reservas.size(); i++) {
                                 
                             %>
-                                <form name = "rowFormReserved" action="../controladores/userControl.jsp" method="POST">
+                                <form name = "rowFormReserved" action="../../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
                                             <input type="text" readonly name="fechaReser" id="fechaReser" value="<%out.println(reservas.get(i).getFecha());%>">
@@ -302,7 +298,7 @@
         
             ConexionEstatica.cerrarBD();
         } else {
-            response.sendRedirect("../index.jsp");
+            response.sendRedirect("../../index.jsp");
         }
         %>
     </body>

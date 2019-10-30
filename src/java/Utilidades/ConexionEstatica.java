@@ -263,6 +263,7 @@ public class ConexionEstatica {
         
         sentenciaPreparada.executeUpdate();
         
+        // Por defecto los nuevos usuarios son profesores
         String sentenciaRoles = "INSERT INTO roles VALUES (?,?)";
         
         PreparedStatement sentenciaPrepRoles = ConexionEstatica.Conex.prepareStatement(sentenciaRoles);

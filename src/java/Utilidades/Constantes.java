@@ -27,6 +27,7 @@ public class Constantes {
     public static String cancelarReserva = "Reserva cancelada";
     public static String modificarUser = "Modificar Usuario";
     public static String borrarUser = "Borrar Usuario";
+    public static String newUser = "Nuevo Usuario";
     public static String aniadirAula = "Añadir Aula";
     public static String borrarAula = "Borrar Aula";
     public static String modificarAula = "Modificar Aula";
@@ -48,6 +49,7 @@ public class Constantes {
     public static String ficheroBitacora = "bitacora.txt";
     public static int active = 1;
     public static int inactive = 0;
+    public static int maxSessionTime = 300;
     
     // Tipos Roles
     public static String strUsr = "Profesor";

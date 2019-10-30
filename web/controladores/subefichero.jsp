@@ -19,62 +19,72 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
+    
+    if (session != null && session.getAttribute("sesUsr") != null) {
+    
+        ConexionEstatica.abrirBD();
 
-    ConexionEstatica.abrirBD();
+        FileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
 
-    FileItemFactory factory = new DiskFileItemFactory();
-    ServletFileUpload upload = new ServletFileUpload(factory);
+        List items = upload.parseRequest(request);
+        Usuario user = (Usuario) session.getAttribute("sesUsr");
 
-    List items = upload.parseRequest(request);
-    Usuario user = (Usuario) session.getAttribute("sesUsr");
+        // Se recorren todos los items, que son de tipo FileItem
+        for (Object item : items) {
+            FileItem uploaded = (FileItem) item;
 
-    // Se recorren todos los items, que son de tipo FileItem
-    for (Object item : items) {
-        FileItem uploaded = (FileItem) item;
+            // Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
+            // subido donde nos interese.
+            if (!uploaded.isFormField()) {
+                // Es un campo fichero: guardamos el fichero en alguna carpeta (en este caso perfiles).
+                //Si lo ponemos como sigue: el archivo se guardará en 'glassfish5/glassfish/domains/domain1/config/perfiles'.
+                //Este directorio, por seguridad, luego no será accesible.
+                String rutaDestino = "perfiles/";
+                File fichero = new File(rutaDestino, user.getDni() + ".jpg"); //El archivo se guardará en 'glassfish5/glassfish/domains/domain1/config/perfiles'.
 
-        // Hay que comprobar si es un campo de formulario. Si no lo es, se guarda el fichero
-        // subido donde nos interese.
-        if (!uploaded.isFormField()) {
-            // Es un campo fichero: guardamos el fichero en alguna carpeta (en este caso perfiles).
-            //Si lo ponemos como sigue: el archivo se guardará en 'glassfish5/glassfish/domains/domain1/config/perfiles'.
-            //Este directorio, por seguridad, luego no será accesible.
-            String rutaDestino = "perfiles/";
-            File fichero = new File(rutaDestino, user.getDni() + ".jpg"); //El archivo se guardará en 'glassfish5/glassfish/domains/domain1/config/perfiles'.
+                uploaded.write(fichero);
+                //Pasamos a binario la imagen para almacenarla en MySQL en el campo BLOB.
+                byte[] icono = new byte[(int) fichero.length()];
+                InputStream input = new FileInputStream(fichero);
+                input.read(icono);
+                user.setFotoBytes(icono);
+                input.close();
 
-            uploaded.write(fichero);
-            //Pasamos a binario la imagen para almacenarla en MySQL en el campo BLOB.
-            byte[] icono = new byte[(int) fichero.length()];
-            InputStream input = new FileInputStream(fichero);
-            input.read(icono);
-            user.setFotoBytes(icono);
-            input.close();
-            
-            fichero.delete();
+                fichero.delete();
+            }
         }
-    }
-    
-    
-    String fechaHora = (new java.util.Date()).toString();
-    ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strAdminAu);
 
-    if (user.getIdRols().contains(Constantes.typeAdminge)) {
-        ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strAdminGe);
-    } else if (user.getIdRols().contains(Constantes.typeAdminau)) {
+        String fechaHora = (new java.util.Date()).toString();
         ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strAdminAu);
+
+        if (user.getIdRols().contains(Constantes.typeAdminge)) {
+            ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strAdminGe);
+        } else if (user.getIdRols().contains(Constantes.typeAdminau)) {
+            ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strAdminAu);
+        } else {
+            ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strUsr);
+        }
+
+        ConexionEstatica.cambiarImagen(user);
+
+        user = ConexionEstatica.existeUsuario(user.getCorreo());
+        ArrayList<Integer> roles = ConexionEstatica.cargarRoles(user.getDni());
+
+        user.setIdRols(roles);
+        session.setAttribute("sesUsr", user);
+    
+        ConexionEstatica.cerrarBD();
+
+        response.sendRedirect("../vistas/Interfaz de Usuario/profile.jsp");
+    
     } else {
-        ConexionEstatica.insertarLog(Constantes.cambiarImagen, fechaHora, user.getCorreo(), Constantes.strUsr);
+        %>
+        <script>
+            alert("Sesión expirada, vuelva a conectarse");
+            location = '../index.jsp';
+        </script>
+        <%
     }
-    
-    ConexionEstatica.cambiarImagen(user);
-
-    user = ConexionEstatica.existeUsuario(user.getCorreo());
-    ArrayList<Integer> roles = ConexionEstatica.cargarRoles(user.getDni());
-
-    user.setIdRols(roles);
-    session.setAttribute("sesUsr", user);
-    
-    ConexionEstatica.cerrarBD();
-
-    response.sendRedirect("../vistas/profile.jsp");
 
 %>
