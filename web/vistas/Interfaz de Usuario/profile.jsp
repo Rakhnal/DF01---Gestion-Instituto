@@ -81,7 +81,7 @@
                 <img id ="userIcon" src="../../img/default.png" id = "profPic" alt = "Foto de perfil">
             </a>
             <%
-            } else {
+                } else {
             %>
             <a href="#">
                 <img id ="userIcon" src="<%= conectado.getFotoimgString()%>" id = "profPic" alt = "Foto de perfil">
