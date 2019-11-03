@@ -24,7 +24,7 @@
                 <h1>Iniciar Sesión</h1>
 
                 <p>Correo</p> 
-                <input type='email' placeholder='usuario@dominio.xxx' name='correo' id = 'correo'/>
+                <input type='email' placeholder='usuario@dominio.xxx' name='correo' id = 'pass'/>
 
                 <p>Contraseña</p> 
                 <input type='password' placeholder='Contraseña' name='pass' id = 'pass'/>

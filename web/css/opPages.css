@@ -98,6 +98,8 @@ table, th, td {
     border-bottom: 1px solid #edfffe;
 }
 
+
+
 img {
     cursor: pointer;
     margin-right: 10px;
@@ -541,17 +543,19 @@ and (max-device-width: 1250px)  {
     body {
         background-size: cover;
     }
+    
+    header nav {
+        display: none;
+    }
 
     #aulas table input[type = 'submit'] {
         background-color: white;
     }
     
-    /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
-        display: block;
+        display: block !important;
     }
-
-    /* Hide table headers (but not display: none;, for accessibility) */
+    
     thead tr {
         position: absolute;
         top: -9999px;

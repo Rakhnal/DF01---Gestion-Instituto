@@ -19,6 +19,7 @@
         <title>Editar Perfil</title>
         
         <link rel="stylesheet" type="text/css" href="../../css/opPages.css">
+        <link rel="stylesheet" type="text/css" href="../../css/sidenav.css">
         <script src="../../scripts/jquery-3.4.1.min.js"></script>
         <script src="../../scripts/headerscroll.js"></script>
         <script src="../../scripts/header.js"></script>
@@ -32,7 +33,34 @@
                 Usuario conectado = (Usuario) session.getAttribute("sesUsr");
         %>
         
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <%
+                if (conectado.getIdRols().contains(Constantes.typeAdminau)) {
+            %>
+            <a href="../Administrador de Aula/franjasAdmin.jsp">Administrar franjas</a>
+            <a href="../Administrador de Aula/roomAdmin.jsp">Administrar aulas</a>
+            <%
+                }
+
+                if (conectado.getIdRols().contains(Constantes.typeAdminge)) {
+            %>
+            <a href="../Administrador General/userAdmin.jsp">Administrar usuarios</a>
+            <a href="../Administrador General/bitacora.jsp">Bitácora</a>
+            <%
+                }
+
+                if (conectado.getIdRols().contains(Constantes.typeUsr)) {
+            %>
+            <a href="../Profesor/roomReserve.jsp">Reserva de aulas</a>
+            <%
+                }
+            %>
+        </div>
+        
         <header id="header">
+            
+            <span id = "sidenav" onclick="openNav()">&#9776;</span>
             
             <nav>
                 <ul>

@@ -151,3 +151,21 @@ footer {
     bottom: 1% !important;
     left: 1% !important;
 }
+
+@media
+only screen 
+and (max-width: 1250px), (min-width: 0px) 
+and (max-device-width: 1250px)  {
+    
+    header nav {
+        display: none !important;
+    }
+}
+
+@media
+only screen 
+and (max-width: 740px), (min-width: 0px) 
+and (max-device-width: 740px)  {
+
+    
+}
