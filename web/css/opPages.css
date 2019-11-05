@@ -205,13 +205,7 @@ select {
     margin-bottom: 5%;
 }
 
-#ppal {
-    width: 100%;
-    min-height: 400px;
-    padding-top: 60px;
-}
-
-#ppalRoom {
+#ppal, #ppalRoom, #profilePage, #aboutDiv {
     width: 100%;
     min-height: 400px;
     padding-top: 60px;
@@ -230,15 +224,6 @@ select {
 #franjasAdmin {
     padding: 5%;
     display: flex;
-    background-color: white;
-    border-radius: 10px;
-    min-height: 250px;
-    margin-right: 20%;
-    margin-left: 20%;
-}
-
-#aboutDiv {
-    padding: 5%;
     background-color: white;
     border-radius: 10px;
     min-height: 250px;
@@ -417,7 +402,6 @@ select {
 }
 
 #aulasUser {
-
     background-color: white;
     border-radius: 10px;
     text-align: center;
@@ -541,11 +525,16 @@ and (max-width: 1250px), (min-width: 0px)
 and (max-device-width: 1250px)  {
 
     body {
-        background-size: cover;
+        background-image: none;
+        background-color: #f5fffe;
     }
     
     header nav {
         display: none;
+    }
+    
+    input[type = 'text'] {
+        width: fit-content !important;
     }
 
     #aulas table input[type = 'submit'] {
@@ -638,13 +627,99 @@ only screen
 and (max-width: 740px), (min-width: 0px) 
 and (max-device-width: 740px)  {
 
-    #reservar, #reservas, #changePass, #changeProfilePic {
+    #reservar, #reservas, #changePass, #changeProfilePic, #aboutDiv {
         min-width: 100%;
         width: 100%;
     }
     
-    #aulasAdmin, #franjasAdmin, #changePass, #changeProfilePic {
+    #aulasAdmin, #franjasAdmin, #changePass, #changeProfilePic, #aboutDiv {
         margin-left: 0;
         margin-right: 0;
+    }
+}
+
+@media
+only screen 
+and (min-width: 0px) 
+and (max-device-width: 740px)  {
+    
+    td {
+        font-size: 2em;
+    }
+    
+    input[type = 'text'] {
+        font-size: 1em;
+        width: fit-content !important;
+    }
+    
+    input[type=date], select {
+        height: 60px;
+        font-size: 2em;
+    }
+    
+    p {
+        font-size: 2em;
+    }
+    
+    header {
+        min-height: 100px;
+    }
+    
+    .bigFont {
+        font-size: 2em;
+    }
+    
+    #profilePage label {
+        height: 60px;
+    }
+    
+    #profilePage input[type=password] {
+        font-size: 1em;
+    }
+    
+    #profilePage {
+        padding-top: 100px;
+        font-size: 2em;
+    }
+    
+    #rooms {
+        padding-top: 100px;
+    }
+    
+    #rooms h1 {
+        font-size: 3em;
+    }
+    
+    #sidenav {
+        font-size: 4.5em !important;
+        width: 100px !important;
+    }
+    
+    #userIcon {
+        width: 100px;
+        height: 100px;
+    }
+    
+    #about, #cese {
+        margin-top: 20px;
+        width: 60px !important;
+        height: 60px;
+    }
+    
+    td input {
+        font-size: 0.7em;
+        width: fit-content !important;
+        height: 60px;
+    }
+    
+    #modifyUser, #deleteUser, #modifyAula, #modifyFranja, #deleteAula, #addAula, #cancel {
+        width: 60px !important;
+        height: 60px;
+    }
+    
+    #checkAula {
+        background-size: 70px;
+        width: 100px !important;
+        height: 100px;
     }
 }

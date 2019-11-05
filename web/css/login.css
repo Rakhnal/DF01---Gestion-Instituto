@@ -147,8 +147,7 @@ and (max-device-width: 1250px)  {
 }
 
 @media
-only screen 
-and (max-width: 740px), (min-width: 0px) 
+only screen and (min-width: 0px) 
 and (max-device-width: 740px) and (orientation: portrait)  {
     
     body {
@@ -182,8 +181,8 @@ and (max-device-width: 740px) and (orientation: portrait)  {
 
 @media
 only screen 
-and (max-width: 740px), (min-width: 0px) 
-and (max-device-width: 740px) and (orientation: landscape)  {
+and (min-width: 0px) 
+and (max-device-width: 830px) and (orientation: landscape)  {
     
     #ppal {
         margin: 0% 30%;
@@ -192,4 +191,25 @@ and (max-device-width: 740px) and (orientation: landscape)  {
     footer {
         visibility: hidden;
     }
+}
+
+@media
+only screen 
+and (max-width: 740px) {
+    
+    footer {
+        visibility: hidden;
+    }
+    
+    #ppal {
+        min-height: 300px;
+        width: 95%;
+        bottom: 1%;
+        top: 1%;
+        right: 1%;
+        left: 1%;
+        margin: 0;
+        position: absolute;
+    }
+    
 }

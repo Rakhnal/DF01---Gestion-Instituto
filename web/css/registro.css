@@ -176,3 +176,110 @@ footer {
     bottom: 1% !important;
     left: 1% !important;
 }
+
+@media
+only screen 
+and (max-width: 1250px), (min-width: 0px) 
+and (max-device-width: 1250px)  {
+    
+    #ppal {
+        width: 70%;
+        margin-left: 15%;
+        margin-top: 10%
+    }
+    
+    #captcha {
+        width: 80%;
+    }
+}
+
+@media
+only screen 
+and (min-width: 0px) 
+and (max-device-width: 630px)
+and (orientation: portrait) {
+    
+    #ppal {
+        width: 100%;
+        margin-left: 0px;
+    }
+    
+    form {
+        height: 100%;
+    }
+    
+    input, p, span {
+        font-size: 2em;
+    }
+    
+    input[type=text], input[type=password], input[type=number], input[type=email] {
+        height: 60px;
+        width: 70%;
+    }
+    
+    img {
+        width: 46px;
+        height: 46px;
+    }
+    
+    input[type=submit], input[type=button] {
+        width: 90px;
+        height: 90px;
+    }
+    
+    h1 {
+        font-size: 3em;
+    }
+}
+
+@media
+only screen 
+and (min-width: 0px) 
+and (max-device-width: 830px)
+and (orientation: landscape) {
+    
+    #ppal {
+        width: 100%;
+        margin-top: 5%;
+        margin-left: 0px;
+    }
+    
+    form {
+        grid-template-columns: repeat(6, 16.2%);
+        height: auto;
+        min-height: 0px;
+        margin-right: 5%;
+        text-align: center;
+    }
+    
+    p, span {
+        font-size: 1.1em;
+    }
+    
+    input {
+        font-size: 0.8em;
+    }
+    
+    input[type=text], input[type=password], input[type=number], input[type=email] {
+        height: 30px;
+        width: 100%;
+    }
+    
+    img {
+        width: 23px;
+        height: 23px;
+    }
+    
+    input[type=submit], input[type=button] {
+        width: 90px;
+        height: 90px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    #captcha {
+        font-size: 1.3em;
+    }
+}

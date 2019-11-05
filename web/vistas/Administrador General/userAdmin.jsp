@@ -157,16 +157,16 @@
                                 <form name = "rowFormAulas" onsubmit = "return validateForm()" action="../../controladores/userControl.jsp" method="POST">
                                     <tr role="row">
                                         <td role="cell">
-                                            <input type="text" class="large transparent" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
+                                            <input type="text" class="transparent" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large transparent" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
+                                            <input type="text" class="transparent" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="nombre" id="nombre<%=user.getDni()%>" value="<%out.println(user.getNombre());%>">
+                                            <input type="text" name="nombre" id="nombre<%=user.getDni()%>" value="<%out.println(user.getNombre());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="large" name="apellido" id="apellido<%=user.getDni()%>" value="<%out.println(user.getApellido());%>">
+                                            <input type="text" name="apellido" id="apellido<%=user.getDni()%>" value="<%out.println(user.getApellido());%>">
                                         </td>
                                         <td role="cell">
                                             <input type="text" name="edad" id="edad<%=user.getDni()%>" value="<%out.println(user.getEdad());%>">
@@ -175,31 +175,31 @@
                                             <%
                                             if(user.getIdRols().contains(Constantes.typeUsr)) {
                                             %>
-                                            <input type="submit" class="especiales large" value="<%=Constantes.dropProfesor%>" name="profesor" id="profesor"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.dropProfesor%>" name="profesor" id="profesor"/>
                                             <%
                                             } else {
                                             %>
-                                                <input type="submit" class="especiales large" value="<%=Constantes.riseProfesor%>" name="profesor" id="profesor"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.riseProfesor%>" name="profesor" id="profesor"/>
                                             <%
                                             }
                                             
                                             if(user.getIdRols().contains(Constantes.typeAdminau)) {
                                             %>
-                                                <input type="submit" class="especiales large" value="<%=Constantes.dropAdminAu%>" name="adminAulas" id="adminAulas"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.dropAdminAu%>" name="adminAulas" id="adminAulas"/>
                                             <%
                                             } else {
                                             %>
-                                                <input type="submit" class="especiales large" value="<%=Constantes.riseAdminAu%>" name="adminAulas" id="adminAulas"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.riseAdminAu%>" name="adminAulas" id="adminAulas"/>
                                             <%
                                             }
                                             
                                             if(user.getIdRols().contains(Constantes.typeAdminge)) {
                                             %>
-                                                <input type="submit" class="especiales large" value="<%=Constantes.dropAdminGe%>" name="adminGen" id="adminGen"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.dropAdminGe%>" name="adminGen" id="adminGen"/>
                                             <%
                                             } else {
                                             %>
-                                                <input type="submit" class="especiales large" value="<%=Constantes.riseAdminGe%>" name="adminGen" id="adminGen"/>
+                                                <input type="submit" class="especiales" value="<%=Constantes.riseAdminGe%>" name="adminGen" id="adminGen"/>
                                             <%
                                             }
                                             %>

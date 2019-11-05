@@ -119,7 +119,7 @@
             %>
         </header>
         
-        <div id = "ppalRoom">
+        <div id = "profilePage">
             <div id="changeProfilePic">
                 <h1>Cambiar Foto</h1>
                 

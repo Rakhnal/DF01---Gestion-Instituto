@@ -14,7 +14,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="shortcut icon" type="image/jpg" href="../img/ifplogo.png" />
+        <link rel="shortcut icon" type="image/jpg" href="../../img/ifplogo.png" />
         <title>Administración de aulas</title>
         
         <link rel="stylesheet" type="text/css" href="../../css/opPages.css">

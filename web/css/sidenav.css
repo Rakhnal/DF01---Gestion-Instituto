@@ -63,3 +63,17 @@ and open the template in the editor.
   }
   
 }
+
+@media
+only screen 
+and (min-width: 0px) 
+and (max-device-width: 630px)  {
+    
+    .sidenav a {
+        font-size: 50px;
+    }
+    
+    .closebtn {
+        font-size: 3.5em !important;
+    }
+}
