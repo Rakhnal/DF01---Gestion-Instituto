@@ -160,7 +160,7 @@
                                             <input type="text" class="transparent" readonly name="dni" id="dni" value="<%out.println(user.getDni());%>">
                                         </td>
                                         <td role="cell">
-                                            <input type="text" class="transparent" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
+                                            <input type="text" class="transparent large" readonly name="correo" id="correo" value="<%out.println(user.getCorreo());%>">
                                         </td>
                                         <td role="cell">
                                             <input type="text" name="nombre" id="nombre<%=user.getDni()%>" value="<%out.println(user.getNombre());%>">

@@ -45,6 +45,11 @@ input {
     border: none;
 }
 
+input[type=submit] {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
 #aulas {
     display: flex;
 
@@ -91,14 +96,14 @@ table {
 }
 
 table input {
+    text-align: center;
+    width: 80px;
     margin-right: 0 !important;
 }
 
 table, th, td {
     border-bottom: 1px solid #edfffe;
 }
-
-
 
 img {
     cursor: pointer;
@@ -108,6 +113,19 @@ img {
     border-radius: 25%;
     float: right;
     vertical-align: middle;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+input[type=button] {
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+img:hover,
+input[type=button]:hover,
+input[type=submit]:hover{
+    transform: scale(1.2);
 }
 
 h1 {
@@ -185,7 +203,7 @@ select {
 }
 
 #deleteAula, #deleteUser {
-    background-image: url(../img/cross.png);
+    background-image: url(../img/delete.png);
     background-repeat: no-repeat;
     background-position: center;
     background-color: transparent;
@@ -348,7 +366,7 @@ select {
 }
 
 .especiales {
-    width: 80px;
+    width: fit-content;
     background-color: #edfffe;
     border: 2px solid #dcf2f1;
     border-radius: 25px;
@@ -380,7 +398,7 @@ select {
 }
 
 #aulasAdmin table input[type = 'text'] {
-    width: 40px;
+    width: fit-content;
     background: none;
     text-align: center;
 }
@@ -397,6 +415,10 @@ select {
     text-align: center;
 }
 
+#descripcion {
+    width: fit-content !important;
+}
+
 #aulasUser table input[type = 'submit'] {
     width: 40px;
 }
@@ -408,7 +430,7 @@ select {
 }
 
 .large {
-    width: 160px !important;
+    width: 160px;
 }
 
 .editable {
