@@ -11,12 +11,12 @@ and open the template in the editor.
 body {
     background-image: url("../img/instPpal.jpg");
     background-repeat: no-repeat;
-    
+
     font-family: sans-serif;
-    
+
     margin: 0;
     padding: 0;
-    
+
     overflow-x: hidden;
     overflow-y: visible;
 }
@@ -48,18 +48,20 @@ fieldset {
     text-align: center;
 }
 
-input[type = 'submit'] {
-    border: none;
-    background: none;
-    width: 60px;
-    height: 60px;
+input[type=submit]:hover, 
+input[type=button]:hover {
+    transform: scale(1.2);
 }
 
-input[type = 'button'] {
+
+input[type = 'submit'],
+input[type = 'button']{
     border: none;
     background: none;
     width: 60px;
     height: 60px;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 input[type = 'number'] {
@@ -81,7 +83,7 @@ form {
     margin: 0;
     border-radius: 9px;
     width: 100%;
-    
+
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: repeat(9, 11.1111);
@@ -89,21 +91,21 @@ form {
 }
 
 header {
-    
+
     position: absolute;
-    
+
     z-index: 10;
-    
+
     margin-top: 20px;
     min-height: 100px;
-    
+
     border: 1px solid #dcf2f1;
-    
+
     width: 100%;
     text-align: -webkit-center;
-    
+
     display:table;
-    
+
     -webkit-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     -moz-box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
     box-shadow: 7px 8px 5px 1px rgba(0,0,0,0.21);
@@ -115,9 +117,9 @@ h1 {
     background-color: white;
     margin: 0;
     padding: 0;
-    
+
     min-height: inherit;
-    
+
     display:table-cell; 
     vertical-align:middle
 }
@@ -141,7 +143,7 @@ select {
     max-width:100%;
     max-height:100%;
     overflow-y: visible;
-    
+
     width: 50%;
     min-height: 500px;
     background-color: white;
@@ -179,15 +181,19 @@ footer {
 
 @media
 only screen 
-and (max-width: 1250px), (min-width: 0px) 
-and (max-device-width: 1250px)  {
-    
+and (max-width: 1250px) and (min-width: 0px) {
+
+    body {
+        background-image: none;
+        background-color: #f5fffe;
+    }
+
     #ppal {
         width: 70%;
         margin-left: 15%;
         margin-top: 10%
     }
-    
+
     #captcha {
         width: 80%;
     }
@@ -196,37 +202,37 @@ and (max-device-width: 1250px)  {
 @media
 only screen 
 and (min-width: 0px) 
-and (max-device-width: 630px)
-and (orientation: portrait) {
-    
+and (max-device-width: 1250px)
+and (orientation: portrait){
+
     #ppal {
         width: 100%;
         margin-left: 0px;
     }
-    
+
     form {
         height: 100%;
     }
-    
+
     input, p, span {
         font-size: 2em;
     }
-    
+
     input[type=text], input[type=password], input[type=number], input[type=email] {
         height: 60px;
         width: 70%;
     }
-    
+
     img {
         width: 46px;
         height: 46px;
     }
-    
+
     input[type=submit], input[type=button] {
         width: 90px;
         height: 90px;
     }
-    
+
     h1 {
         font-size: 3em;
     }
@@ -237,13 +243,13 @@ only screen
 and (min-width: 0px) 
 and (max-device-width: 830px)
 and (orientation: landscape) {
-    
+
     #ppal {
         width: 100%;
         margin-top: 5%;
         margin-left: 0px;
     }
-    
+
     form {
         grid-template-columns: repeat(6, 16.2%);
         height: auto;
@@ -251,34 +257,39 @@ and (orientation: landscape) {
         margin-right: 5%;
         text-align: center;
     }
-    
+
     p, span {
         font-size: 1.1em;
     }
-    
+
     input {
         font-size: 0.8em;
     }
-    
+
     input[type=text], input[type=password], input[type=number], input[type=email] {
         height: 30px;
         width: 100%;
+        margin-top: 5%;
     }
-    
+
     img {
         width: 23px;
         height: 23px;
     }
-    
+
     input[type=submit], input[type=button] {
         width: 90px;
         height: 90px;
     }
-    
+
     h1 {
         font-size: 2em;
     }
-    
+
+    div {
+        margin-top: 20%;
+    }
+
     #captcha {
         font-size: 1.3em;
     }

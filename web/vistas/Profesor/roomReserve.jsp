@@ -145,9 +145,15 @@
                         Calendar now = Calendar.getInstance();
                         int dayOfMonth = now.get(Calendar.DAY_OF_MONTH);
                         int month = now.get(Calendar.MONTH) + 1;
-                        
+
+                        String strDayMonth = String.valueOf(dayOfMonth);
+
+                        if (strDayMonth.length() == 1) {
+                            strDayMonth = 0 + strDayMonth;
+                        }
+
                         String monthStr = ((month < 10) ? "0" : "") + month;
-                        String fecha = now.get(Calendar.YEAR) + "-" + monthStr + "-" + dayOfMonth;
+                        String fecha = now.get(Calendar.YEAR) + "-" + monthStr + "-" + strDayMonth;
                     %>
                     <div class = "bluestyle" id="divFecha">
                         <p>Fecha</p>

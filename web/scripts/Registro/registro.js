@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-var allOK = true;
+var allOK = false;
 var ctSvd = "";
 
 $(document).ready(function () {

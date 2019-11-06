@@ -56,6 +56,13 @@ input[type = 'submit'] {
     height: 50px;
 
     justify-self: center;
+    
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+input[type = 'submit']:hover {
+    transform: scale(1.2);
 }
 
 input[type = 'number'] {
